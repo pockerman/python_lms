@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Ustudy About{% endblock %}
+
+{% block content %}
+
+<div class="row">
+ <div class="col-lg-12">
+    <h1 class="ustdy-header page-header text-center"><strong>About</strong></h1>
+      <ol class="breadcrumb">
+        <li><a href="{% url 'ustdy_app:ustdy_index' %}"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></a></li>
+        <li class="active"><strong>About</strong></li>
+      </ol>
+  </div>
+</div>
+<!-- /.row -->
+
+<div class="row">
+  <div class="col-md-6">
+		{% load staticfiles %}
+    <img class="img-responsive" src="{% static "img/bk_II.jpg" %}" alt=""> 
+  </div>
+  <div class="col-md-6">
+		<h4 class="ustdy-header-two"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>study is a platform for asynchronous education for science & engineering</strong></h4>
+		<h4 class="ustdy-header-two"><strong>We have teaching, training & hands on experience on various scientific and engineering fields</strong></h4>
+    <h4 class="ustdy-header-two"><strong>At U<i class="fa fa-arrow-circle-right fa-1x"></i>study you can find courses, tests & lecture notes for university level modules</strong></h4>
+		<h4 class="ustdy-header-two"><strong>At U<i class="fa fa-arrow-circle-right fa-1x"></i>study you can find experienced tutors for university assignments & dissertations</strong></h4>
+		<h4 class="ustdy-header-two"><strong>At U<i class="fa fa-arrow-circle-right fa-1x"></i>study we are committed to provide high quality educational services</strong></h4>
+  </div>
+</div>
+<!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="ustdy-header page-header">Our Core Experience</h2>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail">
+										{% load static %}
+                    <img class="img-responsive" src="{% static "img/ml_pictogram.png" %}" alt="">
+                    <div class="caption">
+                        <h3>Programming<br>
+                            <small>C++14/Boost Java8 Python3</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail">
+										{% load static %}
+                    <img class="img-responsive" src="{% static "img/hpc_pic.jpeg" %}" alt="">
+                    <div class="caption">
+                        <h3>HPC<br>
+                            <small>MPI OpenMP OpenCL</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail">
+										{% load static %}
+                    <img class="img-responsive" src="{% static "img/stats_pic_I.png" %}" alt="">
+                    <div class="caption">
+                        <h3>Data Science<br>
+                            <small>R Spark Hadoop</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail">
+										{% load static %}
+                    <img class="img-responsive" src="{% static "img/cfd_pic_I.jpg" %}" alt="">
+                    <div class="caption">
+                        <h3>Simulation<br>
+                            <small>FEM FVM Fluid Flow Dynamics</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail">
+										{% load static %}
+                    <img class="img-responsive" src="{% static "img/ml_pic.jpg" %}" alt="">
+                    <div class="caption">
+                        <h3>AI & Machine Learning<br>
+                            <small>TensorFlow scikit-learn Shark</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+						<div class="col-md-4 text-center">
+                <div class="thumbnail">
+										{% load static %}
+                    <img class="img-responsive" src="{% static "img/num_methods_pic.jpg" %}" alt="">
+                    <div class="caption">
+                        <h3>Numerical Methods<br>
+                            <small>C++ Python Matlab</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /.row -->
+
+{% endblock %}

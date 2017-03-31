@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Module {{ module.title }} Quiz{% endblock %}
+{% block content %}
+
+{% load static %}
+<div class="row page-header">
+  <div class="col-md-2">
+     <a href="#">
+			{% if course.photo_file %}
+           <img class="img-responsive img-hover" src="{{MEDIA_URL}}courses/{{course.owner.id}}/{{course.photo_file}}" alt="Course Image">
+			{% else %}
+		       <img class="img-responsive img-hover" src="{% static "img/no-thumb.png" %}" alt="Course Image">	
+			{% endif %}
+     </a>
+  </div>
+  <div class="col-md-10">
+    <h3><a href="{% url 'elearncms:student_course_view' course.slug %}">{{course.title}}</a></h3>  
+ </div>
+</div>
+<div class="row">
+<div class="col-md-3">
+		 
+			<p class="lead"><strong>Module {{module.title}}</strong></p>
+
+			<div class="list-group">
+
+				 {% for s in module.module_sections.all %}
+					<a href="{% url 'elearncms:module_edit_section_view' course.id module.id s.id %}" {% if s.id == section.id %} class="list-group-item active" {% else %} class="list-group-item" {% endif %}>{{ s.title }}</a>
+				 {% empty %}
+					<a href="#" class="list-group-item"><h4 class="list-group-item-heading">No sections for module: {{module.title}}</h4></a>
+				 {% endfor %}	
+  		</div>
+
+			<p class="lead"><strong>Module Quizzes</strong></p>
+
+			<div class="list-group">
+
+				 {% for q in module.module_quiz.all %}
+					<a href="{% url 'elearncms:module_update_quiz_view' course.id module.id quiz.id %}" {% if q.id == quiz.id %} class="list-group-item active" {% else %} class="list-group-item" {% endif %} > Quiz {{ forloop.counter }}</a>
+				 {% empty %}
+					<a href="#" class="list-group-item"><h4 class="list-group-item-heading">No quizes for module: {{module.title}}</h4></a>
+				 {% endfor %}
+  		</div>
+			
+	</div>
+
+	<div class="col-md-9">
+	<!--<form method="post" action=".">-->
+
+		{% for q in questions %}
+
+			<h3 class="page-header">Question {{forloop.counter}} {% if q.result == "CORRECT" %}<i class="fa fa-fw fa-check" style="color:#009933;"></i> {% else %}<i class="fa fa-fw fa-times" style="color:red;"></i> {% endif %}</h3>
+			<p>{{q.question.question}}</p>
+
+			{% if q.question.question_type == 'radio' %}
+				
+				{% for option in q.question.module_quiz_question_option.all %}
+				 <div class="radio">
+				 <label><input type="radio" id="id_caq{{forloop.parentloop.counter}}" name="raq{{forloop.parentloop.counter}}" value="{{option.option}}"/>{{option.option}}</label>
+				 </div>
+				{% endfor %}
+				<br/>
+				
+				<div class="explanation">
+					<br/>
+					<p><strong>The correct answer is option {{q.question.correct_answer}}</strong>.</p>
+					<p><strong>Explanation: </strong>{{q.question.explanation}}</p>
+				</div>
+			{% endif %}
+
+			{% if q.question.question_type == 'checkbox' %}
+				
+				{% for option in q.question.module_quiz_question_option.all %}
+				 <div class="checkbox">
+				 <label><input type="checkbox" id="id_caq{{forloop.counter}}" name="caq{{forloop.counter}}" value="{{option.option}}"/>{{option.option}}</label>
+					</div>
+				{% endfor %}
+				<div class="explanation">
+					<br/>
+					<p><strong>The correct answer is option {{q.question.correct_answer}}</strong>.</p>
+					<p><strong>Explanation: </strong>{{q.question.explanation}}</p>
+				</div>
+			{% endif %}
+
+			{% if q.question.question_type == 'user-input' %}
+
+				<div class="form-group">
+  				<input type="text" class="form-control" id="usr">
+				</div>
+
+				<div class="explanation">
+					<br/>
+					<p><strong>The correct answer is option {{q.question.correct_answer}}</strong>.</p>
+					<p><strong>Explanation: </strong>{{q.question.explanation}}</p>
+				</div>
+
+			{% endif %}
+
+		{% endfor %}
+		<a href="{% url 'elearncms:student_course_module_quiz_start_view' course.slug module.id quiz.id %}" class="btn btn-primary" role="button">Re-do</a>
+	<!--</form>-->
+	</div>
+
+</div>
+
+{% endblock %}

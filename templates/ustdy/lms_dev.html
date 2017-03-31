@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Ustudy Development{% endblock %}
+
+{% block content %}
+
+ 
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="ustdy-header page-header text-center"><strong>Development</strong></h1>
+    </div>
+</div>
+<!-- /.row -->
+
+  <div class="row">
+    <div class="col-lg-12">
+				{% load static %}
+        <img class="img-responsive center-block" src="{% static "img/cubes_pic_lms_view.jpg" %}" alt="">
+    </div>
+</div>
+<!-- /.row -->
+
+<div class="row">
+<div class="col-lg-12 text-center">
+        <h3 class="ustdy-header-two">At U<i class="fa fa-arrow-circle-right fa-1x"></i>study we develop customized learning management systems that meet your training needs</h3>
+				<h3 class="ustdy-header-two">We also develop educational games that reinforce learning through interaction</h3> 
+				<h4 class="ustdy-header-two"><a href="{% url 'contact_app:contact_index' %}">Contact Us</a> to learn more</h4>
+</div>
+<!-- /.row -->
+
+{% endblock %}

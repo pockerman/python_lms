@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}{{course.title}} Overview{% endblock %}
+{% block content %}
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+		{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message}}
+		</div>
+		{% else %}
+			<div class="alert alert-danger alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% endif %}
+	{% endfor %}				
+</div>
+{% endif %}
+
+<div class="row page-header">
+  <div class="col-md-2">
+	{% load static %}
+     <a href="#">
+			{% if course.photo_file %}
+           <img class="img-responsive img-hover" src="{{MEDIA_URL}}courses/{{course.owner.id}}/{{course.photo_file}}" alt="Course Image">
+			{% else %}
+		       <img class="img-responsive img-hover" src="{% static "img/no-thumb.png" %}" alt="Course Image">	
+			{% endif %}
+     </a>
+  </div>
+  <div class="col-md-10">
+    <h3>{{course.title}}</h3>
+    <p></p>
+		<h4><strong>Instructor:</strong> {{ course.owner.get_full_name }}</h4>
+	 	<h5><strong>Subject:</strong> <a href="{% url 'elearncms:ecms_index_subject' course.subject.slug %}">{{course.subject}}</a></h5>
+   
+  </div>
+</div>
+<!-- /.row -->
+
+<!--<div class="row page-header">
+	<div class= "col-md-12 ">
+	 {% load static %}
+	 {% if course.photo_file %}
+			<img style="float:left" class="img-responsive" src="{{MEDIA_URL}}courses/{{course.owner.id}}/{{course.photo_file}}" %}" alt="Course Image">
+	 {% else %}
+			<img style="float:left" class="img-responsive" src="{% static "img/no-thumb.png" %}" alt="Course Image">	
+	 {% endif %}
+	 <h2> {{ course.title }} </h2>
+	 <h4><strong>Instructor:</strong> {{ course.owner.get_full_name }}</h4>
+	 <h5><strong>Subject:</strong> <a href="#">{{course.subject}}</a></h5>
+	<div style="clear:both"></div>
+</div>
+
+</div>-->
+
+
+<div class="row">
+	 <!-- Blog Post Content Column -->
+   <div class="col-md-9">
+			<h2 class="page-header">Overview</h2>
+			{{course.overview}}
+
+			<div id="syllabus" class="hidden">
+				{{syllabus_html}}
+			</div>
+		<hr/>
+			<div class="text-center">
+			<p><input type="button" class="btn btn-success" id="id_show_more_btn" value="Show More" onclick="show_syllabus()"></p>
+			</div>
+	</div><!--/.col-lg-8-->
+
+		<div class="col-md-3">
+
+			<div class="row">
+				{% load account_tags %}
+
+				{% if request.user.is_authenticated %}
+					{% if request.user|is_instructor %}
+						<p><a class="btn btn-primary btn-block" href="{% url 'elearncms:course_edit_view' course.slug %}">Edit Course</a></p>
+					{% else %}
+					{% if enrolled == "True" %}
+						<p><a href="{% url 'elearncms:student_course_view' course.slug %}" class="btn btn-primary btn-block btn-success" > Enrolled Go To Class</a></p>
+					{% else %}
+						<p><a class="btn btn-primary btn-block" href="{% url 'elearncms:enroll_student_to_course' course.id %}">Enroll</a></p>
+					{% endif %}
+			 {% endif %}
+			{% else %}
+				<p><a href="{% url 'account:user_login' %}" class="btn btn-primary btn-block" >Log In To Enroll</a></p>
+
+					{% endif %}
+			
+					<div class="list-group">
+						<li class="list-group-item"><strong>Effort:</strong> {{course.effort }} hours/week </li>
+						<li class="list-group-item"><strong>Duration:</strong> {{course.duration }} weeks </li>
+						<li class="list-group-item"><strong>Fees:</strong> {% if course.fees == 0.0 %} None {% else %} {{course.fees }} {% endif %} </li>
+						<li class="list-group-item"><strong>Language:</strong> {{course.language }} </li>
+						<li class="list-group-item"><strong>Level:</strong> {{course.level }} </li>
+						<li class="list-group-item"><strong>Delivery Mode:</strong> {{course.delivery_mode }} </li>
+						<li class="list-group-item"><strong>Subtitles:</strong> {{course.video_subs }} </li>
+					</div>
+
+					 <div class="well">
+		         <h4>Tags</h4>
+		         <p>{% for tag in course.tags.all %}<a href="#" >{{tag.name }}</a> {% empty %} No tags.{% endfor %}</p>
+		       </div>
+				</div>
+				
+		</div><!--/.col-md-4-->
+</div><!--/.row-->
+
+{% endblock %}
+
+           
+
+                
+
+                
+
+                    
+
+                    
+
+                    
+
+                   
+
+                  
+
+                  
+
+  

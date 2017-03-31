@@ -1,0 +1,6 @@
+django_webtest-1.8.0
+uwsgi-2.0.14
+uwsgi-plugin-python3
+behave-1.2.5
+xmlrunner-1.7.7
+

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Ustdy-Courses{% endblock %}
+{% block content %}
+
+
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+ <div class="col-lg-12">
+ 	<div class="page-header">
+		<h3>COURSES AVAILABLE </h3>
+	</div> <!-- /.page-header-->
+ </div><!-- /.col-lg-12-->
+</div>
+        <!-- /.row -->
+
+
+
+<div class="row">
+
+	<div class="col-md-3">
+     <p class="lead"><strong>Subjects</strong></p>
+       <div class="list-group">
+				 <a href="{% url 'elearncms:ecms_index' %}" {% if subject_title == "ALL" %} class="list-group-item active" {% else %} class="list-group-item" {% endif %}>All <!--<span class="badge">{{all_courses_counter}}</span>--></a>
+			 {% for subject in subjects %}
+					{% load course_tags %} 
+         <a href="{% url 'elearncms:ecms_index_subject' subject.slug %}" {% if subject_title == subject.title %}class="list-group-item active" {% else %}class="list-group-item" {% endif %}>{{ subject.title }} <!--<span class="badge">{{ subject.slug| courses_by_subject}}</span>--></a>
+			 {% endfor %}
+  		</div>
+	</div><!--/.col-md-3-->
+
+ <!-- Projects Row -->
+       
+						{% load static %}
+            <div class="col-md-9 img-portfolio">
+
+							{% for course in courses %}
+							 <div class="row">
+									<div class="col-md-3">
+									 {% if course.photo_file %}
+										<img class="img-responsive img-hover" src="{{MEDIA_URL}}courses/{{course.owner.id}}/{{course.photo_file}}" %}" alt="Course Image">
+									 {% else %}
+		              	<img class="img-responsive img-hover" src="{% static "img/no-thumb.png" %}" alt="Course Image">	
+									 {% endif %}
+									</div>
+									 <div class="col-md-9">
+										<h4><a href="{% url 'elearncms:course_overview' course.slug %}">{{course.title}}</a></h4>
+										<p><strong>Subject: </strong><a href="{% url 'elearncms:ecms_index_subject' course.subject.slug %}">{{ course.subject}}</a> <strong>Level: </strong> {{course.level }} <!--<a href="{%  url 'elearncms:course_overview' course.slug%}">More</a>--></p>
+									</div>
+								</div>
+								<hr/>
+								{% empty %}
+								<div class="row">
+									<div class="col-md-9">
+										<p><strong>No courses found for subject {{subject_title}}.</strong></p>
+									</div>
+								</div>
+			
+								<hr/>	
+								{% endfor %}
+		 
+            </div>
+           
+</div><!--/.row-->
+{% include "mypagination.html" with page=courses %}
+
+{% endblock %}
+
+           
+
+                
+
+                
+
+                    
+
+                    
+
+                    
+
+                   
+
+                  
+
+                  
+
+  

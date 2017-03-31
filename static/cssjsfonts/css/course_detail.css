@@ -1,0 +1,26 @@
+ul.course-nav{
+
+	width: 100%;
+
+}
+
+ul.course-nav li {
+    display: inline-block; /* the key bit */
+    *display: inline; /* IE7 hack */
+    *zoom: 1; /* IE7 hack */
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.hidden-hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+#services-row-1{
+
+	background-color:#223557;
+}

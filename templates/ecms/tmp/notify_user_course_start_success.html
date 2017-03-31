@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Ustdy Notify User Success{% endblock %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<div class="row text-center">
+<h1>Thank you for your interest in <a href="{% url 'ecms_app:course_overview' course.slug %}">{{course.title}}</a> course</h1>
+<h3>We will email you when the course is about to start.</h3>
+</div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Ustudy Host Courses{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-12 text-center">
+     <h1 class="ustdy-header page-header"><strong>Host Your Courses & Notes</strong></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+		{% load static %}
+    <img class="img-responsive center-block" src="{% static "img/cloud_pic_host_view.jpeg" %}" alt="">
+  </div>
+</div>
+<div class="row">
+<div class="col-lg-12 text-center">
+        <h3 class="ustdy-header-two">At U<i class="fa fa-arrow-circle-right fa-1x"></i>study you can develop & host your courses to reach a greater audience</h3>
+				<h4 class="ustdy-header-two"><a href="{% url 'contact_app:contact_index' %}">Contact Us</a> to learn more</h4>
+</div>
+{% endblock %}

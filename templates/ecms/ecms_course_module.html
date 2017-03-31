@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Module {{ module.title }}{% endblock %}
+{% block content %}
+
+{% load static %}
+
+<div class="row page-header">
+  <div class="col-md-2">
+     <a href="#">
+			{% if course.photo_file %}
+           <img class="img-responsive img-hover" src="{{MEDIA_URL}}courses/{{course.owner.id}}/{{course.photo_file}}" alt="Course Image">
+			{% else %}
+		       <img class="img-responsive img-hover" src="{% static "img/no-thumb.png" %}" alt="Course Image">	
+			{% endif %}
+     </a>
+  </div>
+  <div class="col-md-10">
+    <h3><a href="{% url 'elearncms:student_course_view' course.slug %}">{{course.title}}</a></h3>  
+ </div>
+</div>
+<!-- /.row -->
+
+<div class="row">
+	<div class="col-md-3">
+
+     <p class="lead"><strong>Module: {{module.title}}</strong></p>
+			<div class="list-group">
+			 {% for  s in module.module_sections.all %}
+         <a href="{% url 'elearncms:student_course_detail_section_view' course.slug module.id s.id %} " class="list-group-item">{{ s.title }}</a>
+			 {% endfor %}
+			
+		</div>
+		 <p class="lead"><strong>Module Quizzes</strong></p>
+			<div class="list-group">
+				{% for q in module.module_quiz.all %}
+					<a href="{% url 'elearncms:student_course_module_quiz_start_view' course.slug module.id q.id %}" class="list-group-item">Quiz</a>
+				{% endfor %}
+			</div>
+	</div>
+
+
+
+	<div class="col-md-9">
+		<h3 class="page-header">Overview</h3>
+		<p>{{module.overview}}</p>
+	</div>
+
+</div>
+
+
+
+{% endblock %}

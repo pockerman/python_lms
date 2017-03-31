@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Ustudy Library{% endblock %}
+{% block content %}
+<div class="row">
+   <div class="col-lg-12">
+       <h2 class="ustdy-header page-header text-center"><strong>Search U<i class="fa fa-arrow-circle-right fa-1x"></i>study For Notes</strong></h2>
+   </div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<form action="{% url 'library_app:library_index' %}" method="GET" role="search">
+			<div class="input-group">
+         <input  type="text" class="form-control" maxlength="128" placeholder="Search for lecture notes" name="query" id="srch-term" autocomplete="off" required>
+            <div class="input-group-btn">
+               <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+      </div>
+		</form>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+	<hr/>
+	</div>
+</div>
+            
+<div class="row ustdy-search-form-results">
+ <!-- Sidebar Column -->
+<div class="col-md-8">
+
+	{% if search_used == True %}
+
+		{% for book in books %}
+			<h4><a href="{% url 'library_app:pdf_view' book.id book.slug  %}" data-toggle="tooltip" title="Download" >{{book.title}}</a></h4>
+			<p><strong>Language: </strong>{{book.language}} <strong>Subject: </strong>{{book.subject}}</p>
+			<p><strong>Tags: </strong>{% for tag in book.tags.all %}<a href="{% url 'library_app:library_book_tag_search' tag.slug %}" >{{tag.name}}</a> {% endfor %}</p>
+		<hr/>
+		{% empty %}
+			<h3 class="ustdy-header">No results found</h3>
+		{% endfor %}
+	{% endif %}
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+<div class="col-md-4">
+	<p class="lead ustdy-header"><strong>Subjects</strong></p>
+	<div class="list-group">
+
+		{% for subject in subjects %}
+    	<a href="{% url 'library_app:library_index_subject' subject.0.slug %}" {% if subject_title == subject.0.title %} class="list-group-item active" {% else %}class="list-group-item" {% endif %}>{{subject.0.title}}<span class="badge">{{subject.1}}</span></a>
+		{% endfor %}
+  </div>
+
+	<p class="lead ustdy-header"><strong>External Archives</strong></p>
+	<div class="list-group">
+    <a href="http://www.allitebooks.com/" class="list-group-item">All IT eBooks</a>
+    <a href="http://it-ebooks.directory/" class="list-group-item">IT EBOOKS</a>
+		<a href="http://www.freepdfbook.com/" class="list-group-item">Free PDF Books</a>
+		<a href="https://archive.org/details/nasa_techdocs/" class="list-group-item">NASA Technical Documents</a>
+		<a href="https://www.hathitrust.org/" class="list-group-item">HATHI TRUST</a>
+		<a href="https://www.didaktorika.gr/eadd/" class="list-group-item">Greek National Archive Of PhD Thesis</a>
+  </div>
+</div>
+
+</div><!--/.row-->
+{% endblock %}

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock %}</title>
+
+		{% load staticfiles %}
+		
+		<!-- Bootstrap Core CSS -->
+    <link href="{% static "cssjsfonts/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "cssjsfonts/css/modern-business.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "cssjsfonts/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+
+		{% if course_detail == "True" %}
+			<link href="{% static "cssjsfonts/css/course_detail.css" %}" rel="stylesheet" type="text/css">
+		{% endif %}
+
+		<link href="{% static "cssjsfonts/css/ustdy.css" %}" rel="stylesheet" type="text/css">
+
+		<!-- any extra css goes in here -->
+		{% block extra_css %}{% endblock %}
+		
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+		
+
+{% include 'nav.html' %}
+
+{% if show_carousel %}
+<header id="myCarousel" class="carousel slide">
+ <div class="carousel-inner">
+   <div class="item active">
+			{% load staticfiles %}
+         <div class="fill" style="background-image:url('{% static "img/bk_II.jpg" %}');"></div>
+         <div class="carousel-caption">
+         <h1 class="ustdy-header-three"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></h1>
+				 <h4><strong>Science & Engineering University Courses, Tutors & More</strong></h4>
+     </div>
+   </div>
+ </div>
+</header>
+{% endif %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+			{% block content %}
+			{% endblock %}
+        
+    </div>
+    <!-- /.container -->
+
+		{% include 'footer.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Ustdy-SignUp{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+		<div class="alert alert-danger alert-dismissable text-center">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  		{{message }}
+		 </div>		
+	{% endfor %}				
+</div>
+{% endif %}
+<br/>
+
+<div class="row page-header">
+  <div class="col-lg-4 text-center">
+     <p class="lead">CREATE YOUR ACCOUNT</p> 
+		 <p>Your account is your portal to all things Ustdy: your classroom, projects, forums, career resources, and more!</p>  
+  </div>
+</div>
+        <!-- /.row -->
+				
+
+        <div class="row">
+         <div class="col-md-4 col-md-offset-4">
+	    			<form method="post" action="." id="registerForm">
+               {% csrf_token %}
+							
+               <div class="control-group form-group">
+									<label for="first_name">Name</label>
+	         				<div class="controls">
+              			<input type="text" class="form-control " name="first_name" value="{{first_name_val}}" required>
+                    {% if first_name %}
+										{% for error in first_name %}
+                  		<p class="help-block" style="color:red;">{{error}}</p>
+										{% endfor %}
+										{% endif %}
+                  </div>
+              </div>
+							<div class="control-group form-group">
+								<label for="last_name">Last Name</label>
+	         			<div class="controls">
+              		<input type="text" class="form-control " name="last_name" value="{{last_name_val}}" required>
+                  {% if last_name %}
+									{% for error in last_name %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+									{% endif %}
+                </div>
+              </div>
+							<div class="control-group form-group">
+								<label for="username">Username</label>
+	         			<div class="controls">
+              		<input type="text" class="form-control " name="username" value="{{username_val}}"  required>
+                  <p class="help-block">Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+									{% if username %}
+									{% for error in username %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+									{% endif %}
+                </div>
+              </div>
+							<div class="control-group form-group">
+								<label for="email">Email Address</label>
+	         			<div class="controls">
+              		<input type="email" class="form-control " name="email" value="{{email_val}}" required>
+									{% if email %}
+									{% for error in email %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+									{% endif %}
+                </div>
+              </div>
+              <div class="control-group form-group">
+								<label for="password">Password</label>
+	          		<div class="controls">
+                    <input type="password" class="form-control" name="password" required >
+									{% if password %}
+									{% for error in password %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+									{% endif %}
+                </div>
+							</div>
+
+              <div class="control-group form-group">
+								<label for="password">Confirm Password</label>
+	          		<div class="controls">
+                   <input type="password" class="form-control" name="password2" required>
+									{% if password2 %}
+									{% for error in password2 %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+									{% endif %}
+                  </div>
+								</div>
+              <button type="submit" class="btn btn-primary" id="submit-btn">Sign Up</button>
+        	</form>
+        </div>
+       </div><!-- /.row-->
+
+{% endblock %}
+       

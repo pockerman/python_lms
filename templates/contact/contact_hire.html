@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}Ustudy Hire Tutor{% endblock %}  
+{% block content %}
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+			<div class="alert alert-danger alert-dismissable" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endfor %}				
+</div>
+<br/>
+{% endif %}
+<div class="row">
+   <div class="col-lg-12 text-center">
+       <h1 class="ustdy-header page-header"><strong>Find A Tutor</strong></h1>
+   </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+		{% load static %}
+    <img class="img-responsive center-block" src="{% static "img/tutor_pic_hire_view.jpg" %}" alt="">
+  </div>
+</div>    
+
+<div class="row page-header">
+ <div class="col-lg-12 text-center">
+		<h3 class="ustdy-header-two">U<i class="fa fa-arrow-circle-right fa-1x"></i>study can help you with your studies by providing quality tutoring for your classes, exams, assignments or your dissertations</h3>
+		<h3 class="ustdy-header-two">Request information about our tutoring prices by using the form below</h3>
+ </div>
+</div>
+
+<!-- Contact Form -->
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+	<h3>Request Ιnformation <small>(fields with <span style="color:red;">*</span> are required)</small></h3>
+</div>
+
+<div class="col-md-8 col-md-offset-2">
+	
+      <form name="sentMessage" method="post" action="." id="hireForm">
+				{% csrf_token %}
+
+        <div class="control-group form-group">
+           <div class="controls">
+              <label for="id_contact_name">Name<span style="color:red;">*</span></label>
+                  <input maxlength="{{max_length}}" type="text" class="form-control" name="contact_name" id="name" value="{{contact_name_used}}" required>
+									{% if contact_name %}
+										{% for error in contact_name %}
+                  		<p class="help-block" style="color:red;">{{error}}</p>
+										{% endfor %}
+									{% endif %}
+           </div>
+         </div>
+
+				 <div class="control-group form-group">
+            <div class="controls">
+               <label for="id_contact_surname">Last Name<span style="color:red;">*</span></label>
+                   <input maxlength="{{max_length}}" type="text" class="form-control" name="contact_surname" id="surname" value="{{contact_surname_used}}" required>
+							{% if contact_surname %}
+								{% for error in contact_surname %}
+                  <p class="help-block" style="color:red;">{{error}}</p>
+								{% endfor %}
+							{% endif %}
+            </div>
+          </div>
+                   
+          <div class="control-group form-group">
+             <div class="controls">
+                <label for="id_contact_email">Email<span style="color:red;">*</span></label>
+                    <input type="email" class="form-control" name="contact_email" value="{{contact_emal_used}}" id="id_contact_email" required>
+										<p class="help-block">An e-mail  to contact you</p>
+										{% if contact_email %}
+											{% for error in contact_email %}
+                  			<p class="help-block" style="color:red;">{{error}}</p>
+											{% endfor %}
+										{% endif %}
+              </div>
+            </div>
+
+
+					  <div class="form-group">
+							<label for="hire_choices">I need a tutor for<span style="color:red;">*</span></label>
+								<select id="id_hire_choices" name="hire_choices" class="form-control">
+									{% for val, name  in form.fields.hire_choices.choices %}
+										<option value="{{val}}">{{name}}</option>
+									{% endfor %}
+								</select>
+								{% if hire_choices %}
+									{% for error in hire_choices %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+								{% endif %}
+					 </div>
+
+					 <div class="form-group">
+							<label for="language">Language<span style="color:red;">*</span></label>
+								<select id="id_language" name="language" class="form-control">
+									{% for val, name  in form.fields.language.choices %}
+										<option value="{{val}}">{{name}}</option>
+									{% endfor %}
+							 </select>
+							 <p class="help-block">Select the type of language</p>
+							 {% if language %}
+									{% for error in language %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+							 {% endif %}
+					</div>
+
+					<div class="form-group">
+							<label for="university">University<span style="color:red;">*</span></label>
+							<input type="text" class="form-control" name="university" value=" " required>
+							<!--<p class="help-block">The University you are attending</p>-->
+							{% if university %}
+									{% for error in university %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+							 {% endif %}
+					</div>
+
+					<div class="form-group">
+							<label for="department">Department/School<span style="color:red;">*</span></label>
+							<input type="text" class="form-control" name="department" value=" " required>
+							<!--<p class="help-block">The department in the University you are attending</p>-->
+								{% if department %}
+									{% for error in department %}
+                  	<p class="help-block" style="color:red;">{{error}}</p>
+									{% endfor %}
+							  {% endif %}
+					</div>
+
+					<div class="control-group form-group">
+            <div class="controls">
+               <label for="id_content">Comments:</label>
+                   <textarea rows="10" cols="100" class="form-control" name="content" id="id_content" maxlength="999" style="resize:none">{{content_used}}</textarea>
+										<p class="help-block">Provide us with any useful details relevant to your requirements (e.g. submission date and number of pages if this inquire is for a dissertation e.t.c) </p>
+										{% if content %}
+											{% for error in content %}
+                  			<p class="help-block" style="color:red;">{{error}}</p>
+											{% endfor %}
+									  {% endif %}
+             </div>
+           </div>
+           <div id="success"></div>
+                    <!-- For success/fail messages -->
+                    <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        
+
+    {% endblock %}
+
+		{% load staticfiles %}
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "cssjsfonts/js/jqBootstrapValidation.js" %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+    <script src="{% static "cssjsfonts/js/contact_me.js" %}"></script>
+

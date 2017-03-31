@@ -1,0 +1,26 @@
+Contact Name:
+{{ contact_name }}
+
+Contact Surname:
+{{ contact_surname}}
+
+Email:
+{{ contact_email }}
+
+Hire Option:
+{{hire_option}}
+
+Language:
+{{language}}
+
+University:
+{{university}}
+
+Department:
+{{department}}
+
+Module Subject
+{{module}}
+
+Content:
+{{ form_content|safe|striptags }}
