@@ -2,10 +2,10 @@
 {% block title %}Ustudy About{% endblock %}
 
 {% block content %}
-
+<br/>
 <div class="row">
  <div class="col-lg-12">
-    <h1 class="ustdy-header page-header text-center"><strong>About</strong></h1>
+    <!--<h1 class="ustdy-header page-header text-center"><strong>About</strong></h1>-->
       <ol class="breadcrumb">
         <li><a href="{% url 'ustdy_app:ustdy_index' %}"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></a></li>
         <li class="active"><strong>About</strong></li>
@@ -15,19 +15,50 @@
 <!-- /.row -->
 
 <div class="row">
+	<div class="col-lg-12 text-center">
+    <h1 class="ustdy-header page-header text-center"><strong>About U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></h1>
+	</div>
+</div>
+
+<div class="row">
+<div class="col-lg-12 text-center">
+    <h2 class="ustdy-header-two">U<i class="fa fa-arrow-circle-right fa-1x"></i>study is an asynchronous education platform for computational sciences, engineering & mathematics</h2>
+	</div>
+</div>
+
+<div class="row">
+<div class="col-lg-12">
+    <h2 class="ustdy-header page-header">What We Offer</h2>
+	</div>
+
   <div class="col-md-6">
 		{% load staticfiles %}
     <img class="img-responsive" src="{% static "img/bk_II.jpg" %}" alt=""> 
   </div>
   <div class="col-md-6">
-		<h4 class="ustdy-header-two"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>study is a platform for asynchronous education for science & engineering</strong></h4>
-		<h4 class="ustdy-header-two"><strong>We have teaching, training & hands on experience on various scientific and engineering fields</strong></h4>
-    <h4 class="ustdy-header-two"><strong>At U<i class="fa fa-arrow-circle-right fa-1x"></i>study you can find courses, tests & lecture notes for university level modules</strong></h4>
-		<h4 class="ustdy-header-two"><strong>At U<i class="fa fa-arrow-circle-right fa-1x"></i>study you can find experienced tutors for university assignments & dissertations</strong></h4>
-		<h4 class="ustdy-header-two"><strong>At U<i class="fa fa-arrow-circle-right fa-1x"></i>study we are committed to provide high quality educational services</strong></h4>
+		<h4 class="ustdy-header-two">Free & under payment courses on fields such as Computational Mechanics and Computer Science</h4>
+		<h4 class="ustdy-header-two">Free reading material and lecture notes for various scientific fields</h4>
+		<h4 class="ustdy-header-two">Free technical tests on various fields such as programing languages and algorithms</h4>
+		<h4 class="ustdy-header-two">Tutoring services if you need it from our pool of educators & trainers</h4>
+		<h4 class="ustdy-header-two">Development and hosting of third party on-line courses</h4>
+		<h4 class="ustdy-header-two">Design and development of learning management systems</h4>
   </div>
 </div>
 <!-- /.row -->
+<br/>
+<div class="row">
+	<div class="col-lg-12">
+    <h3 class="ustdy-header-two text-center">Our courses are a mixture of self developed training material and open online resources. We are commited to keep these courses for free</h3>
+	</div>
+</div>
+<!-- /.row -->
+
+<br/>
+<div class="row">
+	<div class="col-lg-12">
+    <h3 class="ustdy-header-two text-center">You can develop and host your courses on U<i class="fa fa-arrow-circle-right fa-1x"></i>study with a very small fee and have your material accessed by our users</h3>
+	</div>
+</div>
 
         <div class="row">
             <div class="col-lg-12">
@@ -102,5 +133,13 @@
             
         </div>
         <!-- /.row -->
+
+<br/>
+<div class="row">
+	<div class="col-lg-12">
+    <h3 class="ustdy-header-two text-center"><a href="{% url 'contact_app:contact_index' %}">Contact Us</a> for any further information or any suggestions you may have</h3>
+	</div>
+</div>
+<!-- /.row -->
 
 {% endblock %}
