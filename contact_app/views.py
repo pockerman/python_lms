@@ -23,11 +23,14 @@ def handle_contact_form(request,redirect_ulr,page_data,template):
 		# Email the profile with the 
     # contact information
 		template = get_template('contact/contact_email.txt')
-		context = Context({'contact_name': name,
-                				 'contact_email': email,
-                				'form_content': form_content,})
+		#context = Context({'contact_name': name,
+    #            				 'contact_email': email,
+    #            				'form_content': form_content,})
 
-		content = template.render(context)
+		content = template.render({'contact_name': name,
+                				 			 'contact_email': email,
+                				       'form_content': form_content,})
+
 		email = EmailMessage("New contact form submission",content,
                 					"Your website" +'',['youremail@gmail.com'],headers = {'Reply-To':email })
 		email.send()
@@ -73,7 +76,17 @@ def handle_contact_hire(request,redirect_url,form,page_data,template):
 		department = form.cleaned_data['department']
 		#module = form.cleaned_data['module']
 		template = get_template('contact/contact_hire_email.txt')
-		context = Context({'contact_name': name,
+		#context = Context({'contact_name': name,
+		#										 'contact_surname':surname,
+    #            				 'contact_email': email,
+		#										 'hire_option':hire_option,
+		#										 'language':language,
+		#										 'university':university,
+		#										 'department':department,
+		#										 #'module':module,
+    #            				 'form_content': comments,})
+
+		content = template.render({'contact_name': name,
 												 'contact_surname':surname,
                 				 'contact_email': email,
 												 'hire_option':hire_option,
@@ -83,7 +96,6 @@ def handle_contact_hire(request,redirect_url,form,page_data,template):
 												 #'module':module,
                 				 'form_content': comments,})
 
-		content = template.render(context)
 		email = EmailMessage("New tutor hire form submission",content,
                 					"Your website" +'',['youremail@gmail.com'],headers = {'Reply-To':email })
 		email.send()
