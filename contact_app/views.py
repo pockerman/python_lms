@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.template import Context
 from django.template.loader import get_template
 
+from ustdy.website_settings import site_full_name_team
 from utils_app.utilities import get_errors_map_list
 
 from .forms import ContactForm,HireForm
@@ -43,14 +44,17 @@ def handle_contact_form(request,redirect_ulr,page_data,template):
 	
 
 def contact_index(request,template="contact/contact.html"):
-	page_data={"selectcontact":True,"max_length":ContactForm.max_length}
+	page_data={"meta_author_content":site_full_name_team,
+						"meta_description_content":"Contact "+ site_full_name_team+", Hire a tutor for science, engineering and programming courses, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ,ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΕΠΙΣΤΗΜΕΣ, ΠΟΛΥΤΕΧΝΙΚΕΣ ΣΧΟΛΕΣ",
+						 "meta_keywords_content":"University tutors, engineering tutors, programming tutors, ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ ΜΑΘΗΜΑΤΑ",
+						 "selectcontact":True,"max_length":ContactForm.max_length}
 
 	if request.method == 'POST':
 		return handle_contact_form(request,'/contact/success/',page_data,template)
 	return render(request,template,page_data)
 
 def contact_success(request,template="contact/contact_success.html"):
-	page_data={}
+	page_data={"meta_author_content":site_full_name_team,}
 	return render(request,template,page_data)
 	
 
@@ -94,7 +98,11 @@ def handle_contact_hire(request,redirect_url,form,page_data,template):
 
 def contact_hire(request,template="contact/contact_hire.html"):
 
-	page_data={"selecteducation":True,"selecttutoring":True,"max_length":HireForm.max_length}
+	page_data={"meta_author_content":site_full_name_team,
+						"meta_description_content":"Contact "+ site_full_name_team+", Hire a tutor for science, engineering and programming courses, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ,ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΕΠΙΣΤΗΜΕΣ, ΠΟΛΥΤΕΧΝΙΚΕΣ ΣΧΟΛΕΣ",
+						 "meta_keywords_content":"University tutors, engineering tutors, programming tutors, ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ ΜΑΘΗΜΑΤΑ",
+						 "selecteducation":True,"selecttutoring":True,
+						 "max_length":HireForm.max_length}
 
 	if request.method=='POST':
 		form = HireForm(request.POST)
@@ -105,6 +113,6 @@ def contact_hire(request,template="contact/contact_hire.html"):
 
 
 def contact_hire_success(request,template="contact/contact_hire_success.html"):
-	return render(request,template,{})
+	return render(request,template,{"meta_author_content":site_full_name_team,})
 
 

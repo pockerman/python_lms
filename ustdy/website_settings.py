@@ -1,3 +1,6 @@
+site_full_name = "UstdudyNow"
+site_full_name_team = "UstudyNow Team"
+
 site_index_title='U-study'
 site_about_title = 'About'
 #navigation_elements = ["Join","Services","Courses","Contact"]
