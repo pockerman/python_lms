@@ -12,6 +12,11 @@ from .forms import ContactForm,HireForm
 # Create your views here.
 
 def handle_contact_form(request,redirect_ulr,page_data,template):
+	"""
+		Process the data passed by the user in the contact form. If the data
+		is ok and no error is found it redirects the user to the view handled
+		by contact_success
+	"""
 
 	form = ContactForm(data=request.POST)
 	if form.is_valid():
@@ -20,13 +25,8 @@ def handle_contact_form(request,redirect_ulr,page_data,template):
 		subject = form.cleaned_data['subject']
 		form_content = form.cleaned_data['content']
 
-		# Email the profile with the 
-    # contact information
+		# Email the profile with the contact information
 		template = get_template('contact/contact_email.txt')
-		#context = Context({'contact_name': name,
-    #            				 'contact_email': email,
-    #            				'form_content': form_content,})
-
 		content = template.render({'contact_name': name,
                 				 			 'contact_email': email,
                 				       'form_content': form_content,})
@@ -47,8 +47,11 @@ def handle_contact_form(request,redirect_ulr,page_data,template):
 	
 
 def contact_index(request,template="contact/contact.html"):
+	"""
+		Handles the view for contact
+	"""
 	page_data={"meta_author_content":site_full_name_team,
-						"meta_description_content":"Contact "+ site_full_name_team+", Hire a tutor for science, engineering and programming courses, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ,ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΕΠΙΣΤΗΜΕΣ, ΠΟΛΥΤΕΧΝΙΚΕΣ ΣΧΟΛΕΣ",
+						 "meta_description_content":"Contact "+ site_full_name_team+", Hire a tutor for science, engineering and programming courses, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ,ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΕΠΙΣΤΗΜΕΣ, ΠΟΛΥΤΕΧΝΙΚΕΣ ΣΧΟΛΕΣ",
 						 "meta_keywords_content":"University tutors, engineering tutors, programming tutors, ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ ΜΑΘΗΜΑΤΑ",
 						 "selectcontact":True,"max_length":ContactForm.max_length}
 
@@ -57,6 +60,9 @@ def contact_index(request,template="contact/contact.html"):
 	return render(request,template,page_data)
 
 def contact_success(request,template="contact/contact_success.html"):
+	"""
+		Handles the view after a successfuly submitting a contact form.
+	"""
 	page_data={"meta_author_content":site_full_name_team,}
 	return render(request,template,page_data)
 	
@@ -64,7 +70,11 @@ def contact_success(request,template="contact/contact_success.html"):
 
 def handle_contact_hire(request,redirect_url,form,page_data,template):
 
-	#form = HireForm(request.POST)
+	"""
+		Processes the data passed by the user in the hire tutor form. If the data
+		is ok and no error is found it redirects the user to the view handled
+		by contact_hire_success.
+	"""
 	if form.is_valid():
 		name = form.cleaned_data['contact_name']
 		surname = form.cleaned_data['contact_surname']
@@ -76,16 +86,6 @@ def handle_contact_hire(request,redirect_url,form,page_data,template):
 		department = form.cleaned_data['department']
 		#module = form.cleaned_data['module']
 		template = get_template('contact/contact_hire_email.txt')
-		#context = Context({'contact_name': name,
-		#										 'contact_surname':surname,
-    #            				 'contact_email': email,
-		#										 'hire_option':hire_option,
-		#										 'language':language,
-		#										 'university':university,
-		#										 'department':department,
-		#										 #'module':module,
-    #            				 'form_content': comments,})
-
 		content = template.render({'contact_name': name,
 												 'contact_surname':surname,
                 				 'contact_email': email,
@@ -109,6 +109,9 @@ def handle_contact_hire(request,redirect_url,form,page_data,template):
 		return render(request,template,page_data)	
 
 def contact_hire(request,template="contact/contact_hire.html"):
+	"""
+		Handles the view for hiring a tutor
+	"""
 
 	page_data={"meta_author_content":site_full_name_team,
 						"meta_description_content":"Contact "+ site_full_name_team+", Hire a tutor for science, engineering and programming courses, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ,ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΦΟΙΤΗΤΕΣ, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ ΓΙΑ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ, ΕΠΙΣΤΗΜΕΣ, ΠΟΛΥΤΕΧΝΙΚΕΣ ΣΧΟΛΕΣ",
@@ -125,6 +128,9 @@ def contact_hire(request,template="contact/contact_hire.html"):
 
 
 def contact_hire_success(request,template="contact/contact_hire_success.html"):
+	"""
+		Handles the view after a successfuly submitting a hire form.
+	"""
 	return render(request,template,{"meta_author_content":site_full_name_team,})
 
 

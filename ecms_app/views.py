@@ -7,6 +7,7 @@ from django.views.generic import UpdateView
 from ecms_course_create_app.models import Course,Subject
 from utils_app.utilities import get_errors_map_list,render_user_html_file
 from ustdy.settings import COURSES_ROOT,COURSES_URL
+from ustdy.website_settings import site_full_name_team
 from .forms import NotifyForm
 
 ##general views
@@ -22,8 +23,14 @@ def get_subject_courses_count_list():
 		subject_courses_count_list.append((subject,count))
 	return subject_courses_count_list
 
+def get_meta_tags():
+	return {"meta_author_content":site_full_name_team,
+					"meta_description_content":"On-line university courses in C++ programming, Java programming, CFD with C++, rigid body dynamics simulation, machine learning with c++, artificial intelligence with c++, descriptive statistics with Python,statistical inference with Python, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, C++ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, JAVA ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, ΜΗΧΑΝΙΚΗ ΜΑΘΗΣΗ ΜΕ C++, ΤΕΧΝΙΤΗ ΝΟΗΜΟΣΥΝΗ ΜΕ C++, ΠΕΡΙΓΡΑΦΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python, ΕΠΑΓΩΓΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python",
+					"meta_keywords_content":"On-line university courses in C++ programming, Java programming, CFD with C++, rigid body dynamics simulation, machine learning with c++, artificial intelligence with c++, descriptive statistics with Python,statistical inference with Python, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, C++ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, JAVA ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, ΜΗΧΑΝΙΚΗ ΜΑΘΗΣΗ ΜΕ C++, ΤΕΧΝΙΤΗ ΝΟΗΜΟΣΥΝΗ ΜΕ C++, ΠΕΡΙΓΡΑΦΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python, ΕΠΑΓΩΓΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python"}
+
 def ecms_courses_tmp_view(request,template="ecms/tmp/ecms_index.html"):
-	page_data={"selecteducation":True,"selectcourses":True}
+	page_data=get_meta_tags()
+	page_data.update({"selecteducation":True,"selectcourses":True})
 	return render(request,template,page_data)
 
 def ecms_courses_catalog_view(request,template="ecms/tmp/ecms_catalog.html"):
@@ -66,12 +73,20 @@ def ecms_index(request,template="ecms/ecms_index.html"):
 def course_overview(request,course_slug,template='ecms/tmp/ecms_course_overview.html'):
 	course = get_object_or_404(Course,slug=course_slug)
 
+	meta_keywords = ""
+	for tag in course.tags.all():
+		meta_keywords +=","+str(tag)
+	page_data={"meta_author_content":course.meta_author,
+						 "meta_description_content":course.meta_description,
+						 "meta_keywords_content": meta_keywords}
+
 	#let's render the syllabus files for the course
-	syllabus_html = " "
-	#print(course.syllabus_file.file)
-	#print(COURSES_ROOT)
-	with open(COURSES_ROOT+'/'+course.slug+'/default_syllabus.html', 'r') as myfile:
-		syllabus_html = render_user_html_file(myfile,{})
+	syllabus_html = " No Syllabus file available"
+	try:
+		with open(COURSES_ROOT+'/'+course.slug+'/default_syllabus.html', 'r') as myfile:
+			syllabus_html = render_user_html_file(myfile,{})
+	except:
+			syllabus_html = " No Syllabus file available"
 
 	#this may not be true. the course.photo_file.name
 	#should return only the file name
@@ -80,9 +95,11 @@ def course_overview(request,course_slug,template='ecms/tmp/ecms_course_overview.
 	img_split = img.split('/')
 	img_name = img_split[len(img_split)-1]
 
-	return render(request,template,{"course":course,"syllabus_html":syllabus_html,
+	page_data.update({"course":course,"syllabus_html":syllabus_html,
 																  "img_name":img_name,"selecteducation":True,"selectcourses":True,
 																	"COURSES_URL":COURSES_URL})
+
+	return render(request,template,page_data)
 	
 
 def notify_me_course_start(request,course_slug,template='ecms/tmp/notify_user_course_start_form.html'):
