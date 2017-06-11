@@ -2,22 +2,19 @@
 {% block title %}{{course.title}} Overview{% endblock %}
 {% block content %}
 
+<div class="container">
 
-<div class="row page-header">
-  <div class="col-md-2">
-	{% load static %}
-		<img class="img-responsive img-hover" src="/{{COURSES_URL}}{{course.slug}}/{{img_name}}" alt="Course Image">    
+  <div class="row page-header">
+    <div class="col-md-2">
+	  {% load static %}
+		  <img class="img-responsive img-hover" src="/{{COURSES_URL}}{{course.slug}}/{{img_name}}" alt="Course Image">    
+    </div>
+    <div class="col-md-10">
+      <h3 class="ustdy-header">{{course.title}}</h3>
+	   	<h4 class="ustdy-header"><strong>Subject:</strong><a href="{% url 'ecms_app:ecms_courses_catalog_subject_view'  course.subject.slug %}"> {{course.subject.title}}</a></h4>
+    </div>
   </div>
-  <div class="col-md-10">
-    <h3 class="ustdy-header">{{course.title}}</h3>
-	 	<h4 class="ustdy-header"><strong>Subject:</strong><a href="{% url 'ecms_app:ecms_courses_catalog_subject_view'  course.subject.slug %}"> {{course.subject.title}}</a></h4>
-  </div>
-</div>
 <!-- /.row -->
-
-
-
-
 
 <div class="row">
 	 <!-- Blog Post Content Column -->
@@ -53,6 +50,7 @@
 				
 		</div><!--/.col-md-4-->
 </div><!--/.row-->
+</div>
 
 {% endblock %}
 

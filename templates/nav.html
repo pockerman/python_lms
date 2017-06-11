@@ -1,57 +1,30 @@
-<!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-								<a class="navbar-brand" href="{% url 'ustdy_app:ustdy_index' %}"><strong  id="ustdy-logo" class="ustdy-header-three">U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></a>	
-            </div>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header"><!-- Brand and toggle get grouped for better mobile display -->
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+				<a class="navbar-brand" href="{% url 'ustdy_app:ustdy_index' %}"><strong  id="ustdy-logo" class="ustdy-header-three">U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</strong></a>
+      </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
-
-                <ul class="nav navbar-nav navbar-left">
-										<li {% if selectservices %} class="dropdown active" {% else %} class="dropdown" {% endif %} >
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>SERVICES</strong><b class="caret"></b></a>
-											<ul class="dropdown-menu">
-														<li {% if selectdevelopment %}class="active" {%endif%}>
-		                              <a href="{% url 'ustdy_app:development_view' %}">Development</a>
-		                        </li>
-														<li {% if selecthosting %}class="active" {%endif%}>
-															<a href="{% url 'ustdy_app:host_your_courses_view' %}">Hosting</a>
-														</li>
-												 </ul>
-										</li>
-											<li {% if selecteducation %} class="dropdown active" {% else %} class="dropdown" {% endif %} >
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>EDUCATION</strong><b class="caret"></b></a>
-											<ul class="dropdown-menu">
-														<li {% if selectcourses %}class="active" {%endif%}>
-															<a href="{% url 'ecms_app:ecms_courses_tmp_view' %}" >Online Courses</a>
-														</li>
-														<li {% if selectlibrary %}class="active" {%endif%}>
-		                              <a href="{% url 'library_app:library_index' %}">Library</a>
-		                        </li>
-														<li {% if selecttests %}class="active" {%endif%}>
-															<a href="{% url 'tests_app:tests_index' %}">Tests & Flash Cards</a>
-														</li>
-														<li {% if selecttutoring %}class="active" {%endif%}>
-															<a href="{% url 'contact_app:contact_hire' %}">Hire A Tutor</a>
-														</li>
-														
-												 </ul>
-										</li>
-										
-                    <li {%if selectcontact == True %} class="active" {% endif %}>
-                        <a href="{% url 'contact_app:contact_index' %}" ><strong>CONTACT</strong></a>
-                    </li>
-                   
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+      <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+          <li {% if selectcourses %}class="active" {%endif%}>
+						<a href="{% url 'ecms_app:ecms_courses_catalog_view' %}" >Online Courses</a>
+					</li>
+          <li {% if selectlibrary %}class="active" {%endif%}>
+		         <a href="{% url 'library_app:library_index' %}">Library</a>
+		      </li>
+          <li {% if selecttutoring %}class="active" {%endif%}>
+					  <a href="{% url 'contact_app:contact_hire' %}">Hire A Tutor</a>
+					</li>
+          <li {%if selectcontact == True %} class="active" {% endif %}>
+            <a href="{% url 'contact_app:contact_index' %}" >Contact</a>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>

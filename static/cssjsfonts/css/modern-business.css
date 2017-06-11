@@ -15,6 +15,7 @@ body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+
 .img-portfolio {
     margin-bottom: 30px;
 }
@@ -40,6 +41,214 @@ header.carousel .fill {
     height: 100%;
     background-position: center;
     background-size: cover;
+}
+
+
+section.section-idx{
+	padding: 70px 0;
+}
+
+section.section-idx h2.section-heading  {
+  font-size: 35px;
+	font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 75px;
+}
+
+section.section-idx h3.section-heading {
+  font-size: 30px;
+	font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 75px;
+}
+
+#carousel{
+
+  background-image:url('../../img/header_II.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.9;
+  padding-bottom: 75px;
+
+}
+
+#carousel h3{
+
+  font-weight: bold;
+  color:#FFFFFF;
+
+}
+
+#services-one{
+
+  background-image:url('../../img/header_II.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.9;
+  padding-bottom: 75px;
+}
+
+#services-four{
+
+  background-image:url('../../img/header_II.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;
+  /*opacity: 0.3;*/
+  color:#000000;
+  margin-bottom:-20px;
+  /*padding: 0 0;
+  padding-bottom:15px;*/
+
+}
+
+#services-four h3{
+
+  font-weight: bold;
+  color:#FFFFFF;
+}
+
+/*hosting page*/
+#host{
+  padding-bottom: 100px ;
+  background-image:url('../../img/cloud_pic_II.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  /*background-position: center;*/
+  background-size: cover;
+  /*opacity: 0.3;*/
+  color:#FFFFFF;
+
+}
+
+#host .header-row{
+
+  margin-top:15px;
+
+}
+
+
+/*tests page*/
+#tests{
+  padding-bottom: 100px ;
+  background-image:url('../../img/test_pic_test_view_II.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  /*background-position: center;*/
+  background-size: cover;
+  color:#6b6161;
+
+}
+
+#tests .header-row{
+
+  margin-top:15px;
+
+}
+
+
+
+/*About page*/
+
+#about{
+  background-image:url('../../img/nums.jpg');
+  opacity: 0.8;
+  color:#FFFFFF;
+}
+
+#mission{
+
+  background-image:url('../../img/about_hist.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;
+  /*opacity: 0.3;*/
+  color:#000000;
+
+}
+
+.fill{
+
+  background-image:url('../../img/header_III.jpg'); 
+  opacity: 0.8;
+}
+
+#history{
+  background-image:url('../../img/about_hist.jpg'); 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;
+  /*opacity: 0.3;*/
+  color:#000000;
+
+}
+
+.footer-btm-row{
+
+  margin-top:25px;
+}
+
+/*Contact page*/
+
+#contact-row{
+
+background-image:url('../../img/intro-bg.jpg'); 
+color:#FFFFFF;
+padding-bottom:85px;
+  /*opacity: 0.8;*/
+
+}
+
+#contact-row .header-row{
+
+  padding-bottom:25px;
+}
+
+
+/*careers page*/
+
+#careers{
+
+  /*background-image:url('../../img/about_hist.jpg');*/ 
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;
+  /*opacity: 0.3;*/
+  color:#000000;
+
+
+}
+
+#careers .header-row{
+
+  padding-bottom:15px;
+}
+
+#careers .jobs-btn{
+
+  margin-top:20px;
+  color:#f46b42;
+  border-color:#f46b42;
+}
+
+#careers .second-row{
+
+  margin-top:20px;  
+
+}
+
+#careers .third-row{
+
+  margin-top:20px;  
+
 }
 
 /* 404 Page Styles */
@@ -69,8 +278,15 @@ header.carousel .fill {
 
 /* Footer Styles */
 
-footer {
-    margin: 50px 0;
+#container-footer {
+  /*margin-top: -20px;*/
+  padding-top:10px;
+  /*background-image:url('../../img/about_hist.jpg');*/ 
+  /*background-attachment: fixed;*/
+  background-color:#222222;
+  background-repeat:repeat-y;
+  background-position: center;
+  background-size: cover;
 }
 
 /* Responsive Styles */

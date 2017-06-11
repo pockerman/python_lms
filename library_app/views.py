@@ -10,6 +10,7 @@ from django.http import HttpResponse
 
 #local imports
 from ustdy.settings import LIBRARY_URL,LIBRARY_ROOT
+#from ecms_course_create_app.models import Subject
 
 from .models import LibBook,LibSubject
 from .forms import LibSearchForm

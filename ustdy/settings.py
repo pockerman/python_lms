@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from .conf.prod import *
+from .conf.dev import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,3 +84,8 @@ LIBRARY_URL = 'media/library/'
 STATIC_ROOT = os.path.join(BASE_DIR, "assets/")
 COURSES_ROOT = os.path.join(BASE_DIR,"media/courses/")
 LIBRARY_ROOT = os.path.join(BASE_DIR,"media/library/")
+
+if DEBUG==True:
+  print("Running under development mode")
+else:
+  print("Running under production mode")

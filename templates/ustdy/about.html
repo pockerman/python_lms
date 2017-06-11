@@ -1,33 +1,195 @@
 {% extends "base.html" %}
-{% block title %}Ustudy About{% endblock %}
-
+{% block title %}Ustudynow About{% endblock %}
 {% block content %}
-<br/>
-<div class="row">
+
+
+<!--<div class="row">
  <div class="col-lg-12">
-    <!--<h1 class="ustdy-header page-header text-center"><strong>About</strong></h1>-->
       <ol class="breadcrumb">
-        <li><a href="{% url 'ustdy_app:ustdy_index' %}"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></a></li>
+        <li><a href="{% url 'ustdy_app:ustdy_index' %}"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</strong></a></li>
         <li class="active"><strong>About</strong></li>
       </ol>
   </div>
-</div>
+</div>-->
 <!-- /.row -->
 
-<div class="row">
-	<div class="col-lg-12 text-center">
-    <h1 class="ustdy-header page-header text-center"><strong>About U<i class="fa fa-arrow-circle-right fa-1x"></i>study</strong></h1>
-	</div>
-</div>
+<section id="about" class="section-idx">
+  <div class="container-fluid">
+    <div class="row">
+	    <div class="col-lg-12 text-center">
+        <h1 class="text-center">Re-thinking learning </h1>
+	    </div>
+    </div>
+  </div>
+</section>
+<section id="mission" class="section-idx">
+  <div class="container-fluid">
+    <div class="row">
+	    <div class="col-lg-12 text-center">
+        <h4 class="text-center ustdy-header-two"><strong>Our Mission:</strong> Become the online learning point for scientists & engineers </h4>
+	    </div>
+    </div>
 
-<div class="row">
+     <div class="row">
+	    <div class="col-lg-12 text-center">
+        <h4 class="text-center ustdy-header-two"> Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</h4>
+	    </div>
+    </div>
+    
+  </div>
+</section>
+
+<!--<section class="section-idx">
+  <div class="container-fluid">-->
+   <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>	
+            <li data-target="#myCarousel" data-slide-to="4"></li>	
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            {% load static %}
+            <div class="item active">
+                <div class="fill"></div>
+                <div class="carousel-caption">
+                    <h2 class="section-subheading">What We Offer</h2>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill"></div>
+                <div class="carousel-caption">
+                    <h2 class="section-subheading">Free & under payment courses</h2>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill"></div>
+                <div class="carousel-caption">
+                    <h2 class="section-subheading">Free reading material & lecture notes</h2>
+                </div>
+            </div>
+						<div class="item">
+                <div class="fill"></div>
+                <div class="carousel-caption">
+                    <h2 class="section-subheading">Free technical tests</h2>	
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="fill"></div>
+                <div class="carousel-caption">
+                    <h2 class="section-subheading">Tutoring</h2>	
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+           <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+  <!--</div>
+</section>-->
+
+<section class="section-idx">
+  <div class="container-fluid">
+    <div class="row">
+	    <div class="col-lg-12 text-center">
+        <h4 class="text-center ustdy-header-two"><strong>How We Do It</strong> </h4>
+	    </div>
+    </div>
+
+     <div class="row">
+	    <div class="col-lg-12 text-center">
+        <h4 class="text-center ustdy-header-two"> Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</h4>
+	    </div>
+    </div>
+  </div>
+</section>
+
+<section id="history" class="section-idx">
+  <div class="container">
+    <div class="row">
+	    <div class="col-lg-12 text-center">
+        <h4 class="text-center ustdy-header-two"><strong>Our Past & Future</strong> </h4>
+	    </div>
+    </div>
+
+    <div class="row">
+
+     <div class="col-md-1">
+			<span class="fa-stack fa-2x img-hover">
+          <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
+          <i class="fa fa-puzzle-piece fa-stack-1x fa-inverse"></i>
+       </span> 
+    </div>
+
+    <div class="col-md-4 ">
+        <h4>2010-Idea was conceived</h4> 
+        <p class="text-muted">We design and develop web and desktop applications.</p>
+    </div>
+
+    </div>
+
+     <div class="row">
+      <div class="col-md-1 col-md-offset-2">
+			  <span class="fa-stack fa-2x img-hover">
+            <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
+            <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
+         </span>  
+      </div>
+      <div class="col-md-4 ">
+        <h4>2012-Development begun</h4>
+        <p class="text-muted">We design and develop web and desktop applications.</p> 
+      </div>
+    </div>
+
+     <div class="row">
+     <div class="col-md-1">
+			<span class="fa-stack fa-2x img-hover">
+          <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
+          <i class="fa fa-cloud-upload fa-stack-1x fa-inverse"></i>
+    </div>
+     <div class="col-md-4 ">
+        <h4>2016-Launched </h4> 
+        <p class="text-muted">We design and develop web and desktop applications.</p>
+      </div>
+    </div>
+
+    <div class="row">
+     <div class="col-md-1 col-md-offset-2">
+			<span class="fa-stack fa-2x img-hover">
+          <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
+          <i class="fa fa-cloud-upload fa-stack-1x fa-inverse"></i>
+       </span> 
+    </div>
+
+     <div class="col-md-4 ">
+        <h4>2018...</h4> 
+        <p class="text-muted">We design and develop web and desktop applications.</p>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<!--<div class="row">
 <div class="col-lg-12 text-center">
     <h2 class="ustdy-header-two">U<i class="fa fa-arrow-circle-right fa-1x"></i>study is an asynchronous education platform for computational sciences, engineering & mathematics</h2>
 	</div>
-</div>
+</div>-->
 
-<div class="row">
-<div class="col-lg-12">
+<!--<div class="row">
+  <div class="col-lg-12">
     <h2 class="ustdy-header page-header">What We Offer</h2>
 	</div>
 
@@ -43,15 +205,16 @@
 		<h4 class="ustdy-header-two">Development and hosting of third party on-line courses</h4>
 		<h4 class="ustdy-header-two">Design and development of learning management systems</h4>
   </div>
-</div>
+</div>-->
 <!-- /.row -->
+<!--
 <br/>
 <div class="row">
 	<div class="col-lg-12">
     <h3 class="ustdy-header-two text-center">Our courses are a mixture of self developed training material and open online resources. We are commited to keep these courses for free</h3>
 	</div>
 </div>
-<!-- /.row -->
+
 
 <br/>
 <div class="row">
@@ -132,14 +295,15 @@
             </div>
             
         </div>
-        <!-- /.row -->
+        
 
 <br/>
 <div class="row">
 	<div class="col-lg-12">
     <h3 class="ustdy-header-two text-center"><a href="{% url 'contact_app:contact_index' %}">Contact Us</a> for any further information or any suggestions you may have</h3>
 	</div>
-</div>
-<!-- /.row -->
+</div>--><!-- /.row -->
+
+
 
 {% endblock %}

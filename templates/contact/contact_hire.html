@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Ustudy Hire Tutor{% endblock %}  
+{% block title %}Ustudynow Hire Tutor{% endblock %}  
 {% block content %}
 
 {% if messages %}
+<div class="container-fluid">
 <div class="row">
 	<br/>
 	{% for message in messages %}
@@ -13,37 +14,19 @@
 	{% endfor %}				
 </div>
 <br/>
+</div>
 {% endif %}
-<div class="row">
+<div class="container-fluid" id="contact-row">
+ <div class="row header-row">
    <div class="col-lg-12 text-center">
-       <h1 class="ustdy-header page-header"><strong>Hire A Tutor</strong></h1>
+       <h2>Hire A Tutor</h2>
    </div>
-</div>
+</div> 
 <div class="row">
-  <div class="col-lg-12">
-		{% load static %}
-    <img class="img-responsive center-block" src="{% static "img/tutor_pic_hire_view.jpg" %}" alt="">
-  </div>
-</div>    
-
-<div class="row page-header">
- <div class="col-lg-12 text-center">
-		<h3 class="ustdy-header-two">U<i class="fa fa-arrow-circle-right fa-1x"></i>study can help you with your studies by providing quality tutoring for your classes, exams, assignments or your dissertations</h3>
-		<h3 class="ustdy-header-two">Request information about our tutoring prices by using the form below</h3>
- </div>
-</div>
-
-<!-- Contact Form -->
-<div class="row">
-<div class="col-md-8 col-md-offset-2">
-	<h3>Request Ιnformation <small>(<span style="color:red;">*</span> indicates required)</small></h3>
-</div>
-
 <div class="col-md-8 col-md-offset-2">
 	
       <form name="sentMessage" method="post" action="." id="hireForm">
 				{% csrf_token %}
-
         <div class="control-group form-group">
            <div class="controls">
               <label for="id_contact_name">Name<span style="color:red;">*</span></label>
@@ -55,7 +38,6 @@
 									{% endif %}
            </div>
          </div>
-
 				 <div class="control-group form-group">
             <div class="controls">
                <label for="id_contact_surname">Last Name<span style="color:red;">*</span></label>
@@ -66,13 +48,12 @@
 								{% endfor %}
 							{% endif %}
             </div>
-          </div>
-                   
+          </div>        
           <div class="control-group form-group">
              <div class="controls">
                 <label for="id_contact_email">Email<span style="color:red;">*</span></label>
                     <input type="email" class="form-control" name="contact_email" value="{{contact_emal_used}}" id="id_contact_email" required>
-										<p class="help-block">An e-mail  to contact you</p>
+										<!--<p class="help-block" style="color:#FFFFFF;">An e-mail  to contact you</p>-->
 										{% if contact_email %}
 											{% for error in contact_email %}
                   			<p class="help-block" style="color:red;">{{error}}</p>
@@ -80,8 +61,6 @@
 										{% endif %}
               </div>
             </div>
-
-
 					  <div class="form-group">
 							<label for="hire_choices">I need a tutor for<span style="color:red;">*</span></label>
 								<select id="id_hire_choices" name="hire_choices" class="form-control">
@@ -95,7 +74,6 @@
 									{% endfor %}
 								{% endif %}
 					 </div>
-
 					 <div class="form-group">
 							<label for="language">Language<span style="color:red;">*</span></label>
 								<select id="id_language" name="language" class="form-control">
@@ -103,7 +81,7 @@
 										<option value="{{val}}">{{name}}</option>
 									{% endfor %}
 							 </select>
-							 <p class="help-block">Select the type of language</p>
+							 <!--<p class="help-block">Select the type of language</p>-->
 							 {% if language %}
 									{% for error in language %}
                   	<p class="help-block" style="color:red;">{{error}}</p>
@@ -137,7 +115,7 @@
             <div class="controls">
                <label for="id_content">Comments:</label>
                    <textarea rows="10" cols="100" class="form-control" name="content" id="id_content" maxlength="999" style="resize:none">{{content_used}}</textarea>
-										<p class="help-block">Provide us with any useful details relevant to your requirements (e.g. submission date and number of pages if this inquire is for a dissertation e.t.c) </p>
+										<p class="help-block" style="color:#FFFFFF;">Provide us with any useful details relevant to your requirements (e.g. submission date and number of pages if this inquire is for a dissertation e.t.c) </p>
 										{% if content %}
 											{% for error in content %}
                   			<p class="help-block" style="color:red;">{{error}}</p>
@@ -145,14 +123,13 @@
 									  {% endif %}
              </div>
            </div>
-           <div id="success"></div>
-                    <!-- For success/fail messages -->
-                    <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-
-        </div>
-        <!-- /.row -->
+           <div class="text-center">
+            <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
+           </div>
+      </form>
+    </div>
+  </div><!-- /.row -->
+</div><!--contact-row-->
 
         
 

@@ -7,6 +7,7 @@ from django.views.generic import UpdateView
 from ecms_course_create_app.models import Course,Subject
 from utils_app.utilities import get_errors_map_list,render_user_html_file
 from ustdy.settings import COURSES_ROOT,COURSES_URL
+from ustdy.website_settings import site_full_name_team
 from .forms import NotifyForm
 
 ##general views
@@ -23,7 +24,11 @@ def get_subject_courses_count_list():
 	return subject_courses_count_list
 
 def ecms_courses_tmp_view(request,template="ecms/tmp/ecms_index.html"):
-	page_data={"selecteducation":True,"selectcourses":True}
+	page_data={"selecteducation":True,
+						 "selectcourses":True,
+						 "meta_author_content":site_full_name_team,
+						 "meta_description_content":
+						"upcoming courses UstudyNow,C++ programming, Java programmin, Introduction to HPC with C++, CFD with C++, Machine Learning with C++" }
 	return render(request,template,page_data)
 
 def ecms_courses_catalog_view(request,template="ecms/tmp/ecms_catalog.html"):
@@ -34,7 +39,7 @@ def ecms_courses_catalog_view(request,template="ecms/tmp/ecms_catalog.html"):
 	for subject in subjects:
 		total_counter += subject[1]
 
-	page_data={"selecteducation":True,"selectcourses":True,"subjects":subjects,
+	page_data={"meta_author_content":site_full_name_team,"selecteducation":True,"selectcourses":True,"subjects":subjects,
 						 "total_counter":total_counter,"subject_title":"ALL","courses":courses,"COURSES_URL":COURSES_URL}
 	return render(request,template,page_data)
 
@@ -67,11 +72,15 @@ def course_overview(request,course_slug,template='ecms/tmp/ecms_course_overview.
 	course = get_object_or_404(Course,slug=course_slug)
 
 	#let's render the syllabus files for the course
-	syllabus_html = " "
+	syllabus_html = "NO SYLLABUS HAS BEEN UPLOADED"
 	#print(course.syllabus_file.file)
 	#print(COURSES_ROOT)
-	with open(COURSES_ROOT+'/'+course.slug+'/default_syllabus.html', 'r') as myfile:
-		syllabus_html = render_user_html_file(myfile,{})
+	try:
+		with open(COURSES_ROOT+'/'+course.slug+'/default_syllabus.html', 'r') as myfile:
+			syllabus_html = render_user_html_file(myfile,{})
+	except:
+		syllabus_html = "NO SYLLABUS HAS BEEN UPLOADED"
+		
 
 	#this may not be true. the course.photo_file.name
 	#should return only the file name
@@ -155,5 +164,4 @@ def course_syllabus_view(request,course_slug,template='ecms/course_syllabus.html
 	return HttpResponse('course_syllabus_view response')
 
 
-#def search_view(request,template='ecms/search.html'):
-#	return user_search(request,template)
+
