@@ -29,7 +29,7 @@ handler404 = main_views.handle404
 handler500 = main_views.handle500
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^my-private-admin/', admin.site.urls),
 		
 		url(r'^',
 				include('ustdy_app.urls',

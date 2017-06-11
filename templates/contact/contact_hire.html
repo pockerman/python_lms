@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Ustudynow Hire Tutor{% endblock %}  
+{% block title %}Ustudynow Hire Tutor{% endblock %}
 {% block content %}
-
 {% if messages %}
 <div class="container-fluid">
 <div class="row">
@@ -11,7 +10,7 @@
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   			{{message }}
 		 </div>
-	{% endfor %}				
+	{% endfor %}
 </div>
 <br/>
 </div>
@@ -21,10 +20,10 @@
    <div class="col-lg-12 text-center">
        <h2>Hire A Tutor</h2>
    </div>
-</div> 
+</div>
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
-	
+
       <form name="sentMessage" method="post" action="." id="hireForm">
 				{% csrf_token %}
         <div class="control-group form-group">
@@ -48,7 +47,7 @@
 								{% endfor %}
 							{% endif %}
             </div>
-          </div>        
+          </div>
           <div class="control-group form-group">
              <div class="controls">
                 <label for="id_contact_email">Email<span style="color:red;">*</span></label>
@@ -130,16 +129,11 @@
     </div>
   </div><!-- /.row -->
 </div><!--contact-row-->
-
-        
-
-    {% endblock %}
-
-		{% load staticfiles %}
+{% endblock %}
+{% load staticfiles %}
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "cssjsfonts/js/jqBootstrapValidation.js" %}"></script>
 
 		<!-- Bootstrap Core JavaScript -->
     <script src="{% static "cssjsfonts/js/contact_me.js" %}"></script>
-

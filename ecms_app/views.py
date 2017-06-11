@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404,redirect 
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView
@@ -23,24 +23,31 @@ def get_subject_courses_count_list():
 		subject_courses_count_list.append((subject,count))
 	return subject_courses_count_list
 
+def get_meta_tags():
+	return {"meta_author_content":site_full_name_team,
+					"meta_description_content":"On-line university courses in C++ programming, Java programming, CFD with C++, rigid body dynamics simulation, machine learning with c++, artificial intelligence with c++, descriptive statistics with Python,statistical inference with Python, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, C++ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, JAVA ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, ΜΗΧΑΝΙΚΗ ΜΑΘΗΣΗ ΜΕ C++, ΤΕΧΝΙΤΗ ΝΟΗΜΟΣΥΝΗ ΜΕ C++, ΠΕΡΙΓΡΑΦΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python, ΕΠΑΓΩΓΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python",
+					"meta_keywords_content":"On-line university courses in C++ programming, Java programming, CFD with C++, rigid body dynamics simulation, machine learning with c++, artificial intelligence with c++, descriptive statistics with Python,statistical inference with Python, ΦΟΙΤΗΤΙΚΟ ΦΡΟΝΤΙΣΤΗΡΙΟ, C++ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, JAVA ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ, ΜΗΧΑΝΙΚΗ ΜΑΘΗΣΗ ΜΕ C++, ΤΕΧΝΙΤΗ ΝΟΗΜΟΣΥΝΗ ΜΕ C++, ΠΕΡΙΓΡΑΦΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python, ΕΠΑΓΩΓΙΚΗ ΣΤΑΤΙΣΤΙΚΗ ΜΕ Python"}
+
 def ecms_courses_tmp_view(request,template="ecms/tmp/ecms_index.html"):
+
 	page_data={"selecteducation":True,
-						 "selectcourses":True,
-						 "meta_author_content":site_full_name_team,
-						 "meta_description_content":
-						"upcoming courses UstudyNow,C++ programming, Java programmin, Introduction to HPC with C++, CFD with C++, Machine Learning with C++" }
+				"selectcourses":True,
+				 "meta_author_content":site_full_name_team,
+				 "meta_description_content":
+				 "upcoming courses UstudyNow,C++ programming, Java programmin, Introduction to HPC with C++, CFD with C++, Machine Learning with C++" }
+
 	return render(request,template,page_data)
 
 def ecms_courses_catalog_view(request,template="ecms/tmp/ecms_catalog.html"):
 	subjects = get_subject_courses_count_list()
 	courses = Course.published.all()
-	
+
 	total_counter=0
 	for subject in subjects:
 		total_counter += subject[1]
 
 	page_data={"meta_author_content":site_full_name_team,"selecteducation":True,"selectcourses":True,"subjects":subjects,
-						 "total_counter":total_counter,"subject_title":"ALL","courses":courses,"COURSES_URL":COURSES_URL}
+				"total_counter":total_counter,"subject_title":"ALL","courses":courses,"COURSES_URL":COURSES_URL}
 	return render(request,template,page_data)
 
 def ecms_courses_catalog_subject_view(request,subject_slug,template="ecms/tmp/ecms_catalog.html"):
@@ -59,28 +66,32 @@ def ecms_courses_catalog_subject_view(request,subject_slug,template="ecms/tmp/ec
 							"courses":courses,
 							"COURSES_URL":COURSES_URL}
 	return render(request,template,page_data)
-	
+
 
 
 def ecms_index_subject(request,subject_slug,template="ecms/ecms_index.html"):
 	return HttpResponse('ecms index response with subject slug')
 
 def ecms_index(request,template="ecms/ecms_index.html"):
-	return HttpResponse('ecms index response') 
+	return HttpResponse('ecms index response')
 
 def course_overview(request,course_slug,template='ecms/tmp/ecms_course_overview.html'):
 	course = get_object_or_404(Course,slug=course_slug)
 
+	meta_keywords = ""
+	for tag in course.tags.all():
+		meta_keywords +=","+str(tag)
+	page_data={"meta_author_content":course.meta_author,
+						 "meta_description_content":course.meta_description,
+						 "meta_keywords_content": meta_keywords}
+
 	#let's render the syllabus files for the course
 	syllabus_html = "NO SYLLABUS HAS BEEN UPLOADED"
-	#print(course.syllabus_file.file)
-	#print(COURSES_ROOT)
 	try:
 		with open(COURSES_ROOT+'/'+course.slug+'/default_syllabus.html', 'r') as myfile:
 			syllabus_html = render_user_html_file(myfile,{})
 	except:
 		syllabus_html = "NO SYLLABUS HAS BEEN UPLOADED"
-		
 
 	#this may not be true. the course.photo_file.name
 	#should return only the file name
@@ -89,10 +100,12 @@ def course_overview(request,course_slug,template='ecms/tmp/ecms_course_overview.
 	img_split = img.split('/')
 	img_name = img_split[len(img_split)-1]
 
-	return render(request,template,{"course":course,"syllabus_html":syllabus_html,
+	page_data.update({"course":course,"syllabus_html":syllabus_html,
 																  "img_name":img_name,"selecteducation":True,"selectcourses":True,
 																	"COURSES_URL":COURSES_URL})
-	
+
+	return render(request,template,page_data)
+
 
 def notify_me_course_start(request,course_slug,template='ecms/tmp/notify_user_course_start_form.html'):
 	course = get_object_or_404(Course,slug=course_slug)
@@ -109,16 +122,16 @@ def notify_me_course_start(request,course_slug,template='ecms/tmp/notify_user_co
 			errors_map['course']=course
 			#we want to show what the user has entered
 			errors_map['first_name_val'] = request.POST.get('first_name','')
-			
+
 			return render(request,template,errors_map)
-			
+
 	return render(request,template,{"course":course})
 
 def notify_me_course_start_success(request,course_slug,template='ecms/tmp/notify_user_course_start_success.html'):
 	course = get_object_or_404(Course,slug=course_slug)
 	return render(request,template,{"course":course})
 
-	
+
 
 @login_required
 def course_module_view(request,course_slug,module_slug,template='ecms/ecms_course_module.html'):
@@ -162,6 +175,3 @@ def course_student_progress_view(request,course_slug,student_id,template='ecms/e
 @login_required
 def course_syllabus_view(request,course_slug,template='ecms/course_syllabus.html'):
 	return HttpResponse('course_syllabus_view response')
-
-
-

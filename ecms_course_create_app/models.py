@@ -47,6 +47,12 @@ class CourseInfoMixin(ActiveMixin):
 	#number of weeks the course approximately will last
 	duration = models.CharField(max_length=200,null=False)
 
+	#meta description of what the course is about
+	meta_description = models.CharField(max_length=200,null=False)
+
+	#meta author of the course
+	meta_author = models.CharField(max_length=200,null=False) 
+
 	#the fees for the course
 	fees = models.FloatField(null=False,default=0.0)
 
