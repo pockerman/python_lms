@@ -84,6 +84,10 @@ body {
     opacity: 0.8;
 }
 
+.success-msg{
+  margin-top:105px;
+}
+
 section.section-idx{
 	padding: 70px 0;
 }
@@ -141,6 +145,10 @@ section.section-idx h3.section-heading {
   background-color:#f5f5f5;
   padding-top:10px;
 }
+
+/*.footer-top-row{
+  margin-left:
+}*/
 
 .footer-btm-row{
   padding-top:25px;
