@@ -1,4 +1,3 @@
-
 <div class="container-fluid" id="container-footer">
   <footer id="footer"><!-- Footer -->
     <div class="row">
@@ -15,8 +14,6 @@
         <ul class="list-unstyled list-social-icons">
 		      <li><a href="{% url 'ustdy_app:about_view' %}">About</a></li>
           <li><a href="{% url 'contact_app:contact_index' %}">Contact</a></li>
-          <!--<li><a href="{% url 'ustdy_app:jobs_view' %}">Careers</a></li>-->
-          <!--<li><a href="{% url 'ustdy_app:development_view' %}">Development</a></li>-->
 		      <li><a href="{% url 'ustdy_app:privacy_policy_view' %}">Privacy-Policy</a></li>
          </ul>
 		   </div>
@@ -26,7 +23,6 @@
              <li><a href="{% url 'ecms_app:ecms_courses_catalog_view' %}">Cources</a></li>
              <li><a href="{% url 'contact_app:contact_hire' %}">Hire a tutor</a></li>
              <li><a href="{% url 'ustdy_app:host_your_courses_view' %}">Hosting</a></li>
-             <!--<li><a href="{% url 'ustdy_app:jobs_view' %}">Instructors</a></li>-->
 		         <li><a href="{% url 'library_app:library_index' %}">Library</a></li>
              <li><a href="{% url 'tests_app:tests_index' %}">On-line Tests</a></li>
            </ul>
@@ -35,24 +31,14 @@
 
 		<div class="row footer-btm-row">
 			<div class="col-lg-12 text-center">
-           <p style="color:#FFFFFF;">Copyright &copy; <a href="{% url 'ustdy_app:ustdy_index' %}">U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</a> <!--| Developed By <a href="#">UpperFrameworks</a>--></p>
-           <p style="color:#FFFFFF;">Developed By <a href="#">UpperFrameworks</a></p>
+           <p>Copyright &copy; <a href="{% url 'ustdy_app:ustdy_index' %}">U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</a> <!--| Developed By <a href="#">UpperFrameworks</a>--></p>
       </div>
-
+    </div>
  </footer>
-</div>
-    <!-- /.container -->
+</div><!-- /.container -->
 
 		{% load staticfiles %}
-
-    <!-- jQuery -->
     <script src="{% static "cssjsfonts/js/jquery.js" %}"></script>
-    <!-- Bootstrap Core JavaScript -->
     <script src="{% static "cssjsfonts/js/bootstrap.min.js" %}"></script>
-		<script src="{% static "cssjsfonts/js/jeditable.js" %}"></script>
-
-		<!-- Bootstrap Core JavaScript -->
     <script src="{% static "cssjsfonts/js/elearncms.js" %}"></script>
-
-		<!-- any extra javascript goes in here -->
 		{% block extra_js %}{% endblock %}

@@ -2,7 +2,7 @@
 {% block title %}Ustudynow Courses Catalog{% endblock %}
 {% block content %}
 
-<div class="container-fluid">
+<!--<div class="container-fluid">
   <div class="row">
 	  <div class="col-md-4 col-md-offset-4">
 		  <form action="{% url 'library_app:library_index' %}" method="GET" role="search">
@@ -17,23 +17,36 @@
   </div>
 </div>
 
+<div class="container-fluid">
+  <div class="row">
+	   <div class="col-lg-12">
+	      <hr/>
+	     </div>
+  </div>
+</div>-->
 
 <div class="container-fluid">
-<div class="row">
-	<div class="col-lg-12">
-	<hr/>
-	</div>
-</div>
+  <div class="row header-row">
+    <div class="col-lg-12">
+ 	    <div class="text-center">
+		      <h2 class="ustdy-header">Available Courses</h2>
+	    </div>
+    </div>
+  </div>
+
+<div class="row search-form-row">
+  <div class="col-md-4 col-md-offset-4">
+    <form action="{% url 'library_app:library_index' %}" method="GET" role="search">
+      <div class="input-group">
+       <input  type="text" class="form-control" maxlength="128" placeholder="What do you want to learn?" name="query" id="srch-term" autocomplete="off" required>
+          <div class="input-group-btn">
+             <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+      </div>
+    </form>
+  </div>
 </div>
 
-<div class="container-fluid">
-<div class="row">
- <div class="col-lg-12">
- 	<div class="page-header">
-		<h3 class="ustdy-header">AVAILABLE COURSES</h3>
-	</div> 
- </div>
-</div>
 
 <div class="row">
  <div class="col-md-4">
@@ -54,7 +67,7 @@
 									 {% if course.photo_file %}
 										<img class="img-responsive img-hover" src="/{{COURSES_URL}}{{course.slug}}/{{course.photo_file_name}}" alt="Course Image">
 									 {% else %}
-		              	<img class="img-responsive img-hover" src="{% static "img/no-thumb.png" %}" alt="Course Image">	
+		              	<img class="img-responsive img-hover" src="{% static "img/no-thumb.png" %}" alt="Course Image">
 									 {% endif %}
 									</div>
 									 <div class="col-md-9">
@@ -69,32 +82,12 @@
 										<p><strong>No courses found for subject {{subject_title}}.</strong></p>
 									</div>
 								</div>
-			
-								<hr/>	
+
+								<hr/>
 								{% endfor %}
-		 
+
             </div>
-           
+
 </div><!--/.row-->
 </div>
 {% endblock %}
-
-           
-
-                
-
-                
-
-                    
-
-                    
-
-                    
-
-                   
-
-                  
-
-                  
-
-  

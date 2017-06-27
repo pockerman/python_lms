@@ -1,18 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Ustudynow About{% endblock %}
 {% block content %}
-
-
-<!--<div class="row">
- <div class="col-lg-12">
-      <ol class="breadcrumb">
-        <li><a href="{% url 'ustdy_app:ustdy_index' %}"><strong>U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</strong></a></li>
-        <li class="active"><strong>About</strong></li>
-      </ol>
-  </div>
-</div>-->
-<!-- /.row -->
-
 <section id="about" class="section-idx">
   <div class="container-fluid">
     <div class="row">
@@ -29,91 +17,96 @@
         <h4 class="text-center ustdy-header-two"><strong>Our Mission:</strong> Become the online learning point for scientists & engineers </h4>
 	    </div>
     </div>
-
-     <div class="row">
-	    <div class="col-lg-12 text-center">
-        <h4 class="text-center ustdy-header-two"> Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</h4>
+    <div class="row">
+	    <div class="col-md-8 col-md-offset-2">
+        <h3 class="text-center ustdy-header-two">
+          We believe that everyone should have the opportunity to access high quality educational material.
+          We are developing an online learning platform targeting scientific and engnineering subjects that goes beyond the traditional educational model.  </h3>
 	    </div>
     </div>
-    
   </div>
 </section>
 
-<!--<section class="section-idx">
-  <div class="container-fluid">-->
-   <header id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>	
-            <li data-target="#myCarousel" data-slide-to="4"></li>	
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             {% load static %}
             <div class="item active">
-                <div class="fill"></div>
+                <div  class="fill" >
+                  <img src="{% static 'img/carousel_IV.jpg' %}" alt="Los Angeles">
+                </div>
                 <div class="carousel-caption">
-                    <h2 class="section-subheading">What We Offer</h2>
+                    <h2>What We Offer</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill"></div>
+                <div class="fill">
+                  <img src="{% static 'img/carousel_IV.jpg' %}" alt="Los Angeles">
+                </div>
                 <div class="carousel-caption">
-                    <h2 class="section-subheading">Free & under payment courses</h2>
+                    <h2>Free & under payment courses</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill"></div>
+                <div class="fill">
+                  <img src="{% static 'img/carousel_IV.jpg' %}" alt="Los Angeles">
+                </div>
                 <div class="carousel-caption">
-                    <h2 class="section-subheading">Free reading material & lecture notes</h2>
+                    <h2>Free reading material & lecture notes</h2>
                 </div>
             </div>
 						<div class="item">
-                <div class="fill"></div>
+                <div class="fill">
+                  <img src="{% static 'img/carousel_IV.jpg' %}" alt="Los Angeles">
+                </div>
                 <div class="carousel-caption">
-                    <h2 class="section-subheading">Free technical tests</h2>	
+                    <h2>Free technical tests</h2>
                 </div>
             </div>
-
             <div class="item">
-                <div class="fill"></div>
+                <div class="fill">
+                  <img src="{% static 'img/carousel_IV.jpg' %}" alt="Los Angeles">
+                </div>
                 <div class="carousel-caption">
-                    <h2 class="section-subheading">Tutoring</h2>	
+                    <h2>Tutoring</h2>
                 </div>
             </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-           <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-    </header>
-  <!--</div>
-</section>-->
-
-<section class="section-idx">
+        </div>    
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<section id="how-to" class="section-idx">
   <div class="container-fluid">
     <div class="row">
 	    <div class="col-lg-12 text-center">
         <h4 class="text-center ustdy-header-two"><strong>How We Do It</strong> </h4>
 	    </div>
     </div>
-
-     <div class="row">
-	    <div class="col-lg-12 text-center">
-        <h4 class="text-center ustdy-header-two"> Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</h4>
+    <div class="row">
+	    <div class="col-md-8 col-md-offset-2 text-center">
+        <h3 class="text-center ustdy-header-two"> We  provide the infrastructure so that third party educators and
+        educational institutes can develop their courses.</h3>
+        <h3 class="text-center ustdy-header-two"> We develop our own learning materials as a mixture  of
+          free and open online resources selected by expert educators and material developed by us.</h3>
+        <h3 class="text-center ustdy-header-two"> We focus on designing a self-paced learning experience that comes as close as possible to what
+          you would learn in the college classroom. Our courses are available to you any time, and the deadlines are under your control.</h3>
 	    </div>
     </div>
   </div>
 </section>
-
 <section id="history" class="section-idx">
   <div class="container">
     <div class="row">
@@ -121,189 +114,60 @@
         <h4 class="text-center ustdy-header-two"><strong>Our Past & Future</strong> </h4>
 	    </div>
     </div>
-
     <div class="row">
-
-     <div class="col-md-1">
-			<span class="fa-stack fa-2x img-hover">
-          <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
-          <i class="fa fa-puzzle-piece fa-stack-1x fa-inverse"></i>
-       </span> 
+       <div class="col-md-1 about-stack">
+  			<span class="fa-stack fa-2x img-hover">
+            <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
+            <i class="fa fa-puzzle-piece fa-stack-1x fa-inverse"></i>
+         </span>
+      </div>
+      <div class="col-md-4 ">
+          <h4>2013-Idea was conceived</h4>
+          <p class="text-muted">We came up with the idea and started exploring the options.</p>
+      </div>
     </div>
-
-    <div class="col-md-4 ">
-        <h4>2010-Idea was conceived</h4> 
-        <p class="text-muted">We design and develop web and desktop applications.</p>
-    </div>
-
-    </div>
-
-     <div class="row">
-      <div class="col-md-1 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-1 col-md-offset-2 about-stack">
 			  <span class="fa-stack fa-2x img-hover">
             <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
             <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
-         </span>  
+         </span>
       </div>
       <div class="col-md-4 ">
-        <h4>2012-Development begun</h4>
-        <p class="text-muted">We design and develop web and desktop applications.</p> 
+        <h4>2014-Development begun</h4>
+        <p class="text-muted">Almost a year later we started developing the platform.</p>
       </div>
     </div>
-
-     <div class="row">
-     <div class="col-md-1">
-			<span class="fa-stack fa-2x img-hover">
-          <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
-          <i class="fa fa-cloud-upload fa-stack-1x fa-inverse"></i>
-    </div>
-     <div class="col-md-4 ">
-        <h4>2016-Launched </h4> 
-        <p class="text-muted">We design and develop web and desktop applications.</p>
-      </div>
-    </div>
-
     <div class="row">
-     <div class="col-md-1 col-md-offset-2">
+     <div class="col-md-1 about-stack">
 			<span class="fa-stack fa-2x img-hover">
           <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
           <i class="fa fa-cloud-upload fa-stack-1x fa-inverse"></i>
-       </span> 
     </div>
-
      <div class="col-md-4 ">
-        <h4>2018...</h4> 
-        <p class="text-muted">We design and develop web and desktop applications.</p>
+        <h4>2016-Launched </h4>
+        <p class="text-muted">We launched an experimental version.</p>
       </div>
     </div>
-
-
+    <div class="row">
+     <div class="col-md-1 col-md-offset-2 about-stack">
+			<span class="fa-stack fa-2x img-hover">
+          <i class="fa fa-circle fa-stack-2x text-primary" style="color:#660033;"></i>
+          <i class="fa fa-fighter-jet fa-stack-1x fa-inverse"></i>
+       </span>
+    </div>
+    <div class="col-md-4 ">
+        <h4>2018...</h4>
+        <p class="text-muted">We continue development and improvements to the platform.</p>
+      </div>
+    </div>
   </div>
 </section>
-
-
-<!--<div class="row">
-<div class="col-lg-12 text-center">
-    <h2 class="ustdy-header-two">U<i class="fa fa-arrow-circle-right fa-1x"></i>study is an asynchronous education platform for computational sciences, engineering & mathematics</h2>
-	</div>
-</div>-->
-
-<!--<div class="row">
-  <div class="col-lg-12">
-    <h2 class="ustdy-header page-header">What We Offer</h2>
-	</div>
-
-  <div class="col-md-6">
-		{% load staticfiles %}
-    <img class="img-responsive" src="{% static "img/bk_II.jpg" %}" alt=""> 
-  </div>
-  <div class="col-md-6">
-		<h4 class="ustdy-header-two">Free & under payment courses on fields such as Computational Mechanics and Computer Science</h4>
-		<h4 class="ustdy-header-two">Free reading material and lecture notes for various scientific fields</h4>
-		<h4 class="ustdy-header-two">Free technical tests on various fields such as programing languages and algorithms</h4>
-		<h4 class="ustdy-header-two">Tutoring services if you need it from our pool of educators & trainers</h4>
-		<h4 class="ustdy-header-two">Development and hosting of third party on-line courses</h4>
-		<h4 class="ustdy-header-two">Design and development of learning management systems</h4>
-  </div>
-</div>-->
-<!-- /.row -->
-<!--
-<br/>
-<div class="row">
-	<div class="col-lg-12">
-    <h3 class="ustdy-header-two text-center">Our courses are a mixture of self developed training material and open online resources. We are commited to keep these courses for free</h3>
-	</div>
-</div>
-
-
-<br/>
-<div class="row">
-	<div class="col-lg-12">
-    <h3 class="ustdy-header-two text-center">You can develop and host your courses on U<i class="fa fa-arrow-circle-right fa-1x"></i>study with a very small fee and have your material accessed by our users</h3>
-	</div>
-</div>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="ustdy-header page-header">Our Core Experience</h2>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="thumbnail">
-										{% load static %}
-                    <img class="img-responsive" src="{% static "img/ml_pictogram.png" %}" alt="">
-                    <div class="caption">
-                        <h3>Programming<br>
-                            <small>C++14/Boost Java8 Python3</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="thumbnail">
-										{% load static %}
-                    <img class="img-responsive" src="{% static "img/hpc_pic.jpeg" %}" alt="">
-                    <div class="caption">
-                        <h3>HPC<br>
-                            <small>MPI OpenMP OpenCL</small>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="thumbnail">
-										{% load static %}
-                    <img class="img-responsive" src="{% static "img/stats_pic_I.png" %}" alt="">
-                    <div class="caption">
-                        <h3>Data Science<br>
-                            <small>R Spark Hadoop</small>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="thumbnail">
-										{% load static %}
-                    <img class="img-responsive" src="{% static "img/cfd_pic_I.jpg" %}" alt="">
-                    <div class="caption">
-                        <h3>Simulation<br>
-                            <small>FEM FVM Fluid Flow Dynamics</small>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="thumbnail">
-										{% load static %}
-                    <img class="img-responsive" src="{% static "img/ml_pic.jpg" %}" alt="">
-                    <div class="caption">
-                        <h3>AI & Machine Learning<br>
-                            <small>TensorFlow scikit-learn Shark</small>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-
-						<div class="col-md-4 text-center">
-                <div class="thumbnail">
-										{% load static %}
-                    <img class="img-responsive" src="{% static "img/num_methods_pic.jpg" %}" alt="">
-                    <div class="caption">
-                        <h3>Numerical Methods<br>
-                            <small>C++ Python Matlab</small>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        
-
-<br/>
-<div class="row">
-	<div class="col-lg-12">
-    <h3 class="ustdy-header-two text-center"><a href="{% url 'contact_app:contact_index' %}">Contact Us</a> for any further information or any suggestions you may have</h3>
-	</div>
-</div>--><!-- /.row -->
-
-
-
+{% endblock %}
+{% block extra_js %}
+<script>
+$('.carousel').carousel({
+    interval: 2500 //changes the speed
+})
+</script>
 {% endblock %}

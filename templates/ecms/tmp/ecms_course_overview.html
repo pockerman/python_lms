@@ -1,77 +1,46 @@
 {% extends "base.html" %}
 {% block title %}{{course.title}} Overview{% endblock %}
 {% block content %}
-
 <div class="container">
-
   <div class="row page-header">
     <div class="col-md-2">
 	  {% load static %}
-		  <img class="img-responsive img-hover" src="/{{COURSES_URL}}{{course.slug}}/{{img_name}}" alt="Course Image">    
+		  <img class="img-responsive img-hover" src="/{{COURSES_URL}}{{course.slug}}/{{img_name}}" alt="Course Image">
     </div>
     <div class="col-md-10">
       <h3 class="ustdy-header">{{course.title}}</h3>
 	   	<h4 class="ustdy-header"><strong>Subject:</strong><a href="{% url 'ecms_app:ecms_courses_catalog_subject_view'  course.subject.slug %}"> {{course.subject.title}}</a></h4>
     </div>
-  </div>
-<!-- /.row -->
-
+  </div><!-- /.row -->
 <div class="row">
-	 <!-- Blog Post Content Column -->
    <div class="col-md-9">
 			<h2 class="ustdy-header">Overview</h2>
 			<p>{{course.overview}}</p>
-
 			<div id="syllabus" class="hidden">
 				{{syllabus_html}}
 			</div>
-		<!--<hr/>-->
 			<br/>
 			<div class="text-center">
-			<p><input type="button" class="btn btn-success" id="id_show_more_btn" value="Show More" onclick="show_syllabus()"></p>
+			     <p><input type="button" class="btn btn-success" id="id_show_more_btn" value="Show More" onclick="show_syllabus()"></p>
 			</div>
-	</div><!--/.col-lg-8-->
-
+	</div>
 <div class="col-md-3">
-<div class="row">
-	<p class="text-center"><strong>Starts {{course.start_date}}</strong></p>
-	<p><a href="{% url 'ecms_app:notify_me_course_start' course.slug %}" class="btn btn-primary btn-block btn-success" id="myBtn"><strong>Nottify Me</strong></a></p>
-	<div class="list-group">
-						<li class="list-group-item"><i class="fa fa-tachometer fa-1x"></i> Effort: {{course.effort }} hours/week </li>
-						<li class="list-group-item"><i class="fa fa-clock-o fa-1x"></i> Duration: {{course.duration }} weeks </li>
-						<li class="list-group-item"><i class="fa fa-tag fa-1x"></i> Fees: {% if course.fees == 0.0 %} None {% else %} {{course.fees }} {% endif %} </li>
-						<li class="list-group-item"><i class="fa fa-comment-o fa-1x"></i> Language: {{course.language }} </li>
-						<li class="list-group-item"><i class="fa fa-level-up fa-1x"></i> Level: {{course.level }} </li>
-						<li class="list-group-item"><i class="fa fa-arrow-circle-right fa-1x"></i> Delivery Mode: {{course.delivery_mode }} </li>
-						<li class="list-group-item"><i class="fa fa-bars fa-1x"></i> Subtitles: {{course.video_subs }} </li>
-						<li class="list-group-item"><i class="fa fa-university fa-1x"></i> Institution <a href="{% url 'ustdy_app:ustdy_index' %}">U<i class="fa fa-arrow-circle-right fa-1x"></i>study</a> </li>
-					</div>	
-				</div>
-				
-		</div><!--/.col-md-4-->
+  <div class="row">
+	   <p class="text-center"><strong>Starts {{course.start_date}}</strong></p>
+	   <p><a href="{% url 'ecms_app:notify_me_course_start' course.slug %}" class="btn btn-primary btn-block btn-success" id="myBtn"><strong>Nottify Me</strong></a></p>
+	   <div class="list-group">
+			<li class="list-group-item"><i class="fa fa-tachometer fa-1x"></i> Effort: {{course.effort }} hours/week </li>
+			<li class="list-group-item"><i class="fa fa-clock-o fa-1x"></i> Duration: {{course.duration }} weeks </li>
+			<li class="list-group-item"><i class="fa fa-tag fa-1x"></i> Fees: {% if course.fees == 0.0 %} None {% else %} {{course.fees }} {% endif %} </li>
+			<li class="list-group-item"><i class="fa fa-comment-o fa-1x"></i> Language: {{course.language }} </li>
+			<li class="list-group-item"><i class="fa fa-level-up fa-1x"></i> Level: {{course.level }} </li>
+			<li class="list-group-item"><i class="fa fa-arrow-circle-right fa-1x"></i> Delivery Mode: {{course.delivery_mode }} </li>
+			<li class="list-group-item"><i class="fa fa-bars fa-1x"></i> Subtitles: {{course.video_subs }} </li>
+			<li class="list-group-item"><i class="fa fa-university fa-1x"></i> Institution <a href="{% url 'ustdy_app:ustdy_index' %}">U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</a> </li>
+	 </div>
+	</div>
+ </div><!--/.col-md-4-->
 </div><!--/.row-->
 </div>
 
 {% endblock %}
-
-
-
-           
-
-                
-
-                
-
-                    
-
-                    
-
-                    
-
-                   
-
-                  
-
-                  
-
-  

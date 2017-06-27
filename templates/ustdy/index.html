@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Ustudynow Home{% endblock %}
+{% load staticfiles %}
+{% block extra_css %}<link href="{% static "cssjsfonts/css/animate.css" %}" rel="stylesheet" type="text/css">{% endblock %}
 {% block content %}
 <section id="services-three" class="section-idx" style="background-color: rgb(245, 245, 240);"> <!--style="background: rgb(245, 245, 240);">-->
 <!--style="background: rgb(77, 148, 255); ">-->
@@ -13,7 +15,6 @@
     <div class="row">
 	   <div class="col-md-6 ">
         <h4>As your industry and business model evolve, you need a learning solution that helps you deliver key innovations on time and on budget. With our platform, you can evaluate the technical abilities of your teams, align learning to key business objectives and close skills gaps in critical areas like cloud, design, security, mobile and data <a href="{% url 'ustdy_app:about_view' %}"><i class="fa fa-arrow-circle-right fa-1x" style="color:#66c661"></i></a> </h4>
-<!--<button class="btn btn-success" >Learn More</button>-->
   <br/>
 
      </div>
@@ -29,9 +30,6 @@
 <section id="services-one" class="section-idx" >
   <div class="container-fluid" >
     <div class="row">
-	    <!--<div class="col-lg-12 text-center">
-	      <h2 class="ustdy-header page-header"><strong>Features</strong></h2>
-	    </div>-->
 	    <div class="col-md-4 col-sm-6">
 		    <a href="{% url 'contact_app:contact_hire' %}">
 		       {% load static %}
@@ -95,8 +93,7 @@
 </div> <!--container-fluid-->
 </section>
 
-<section id="services-four" class="section-idx">  <!--style="  background-color: rgba(0, 0, 0,0.8);">-->
-<!--style="background: rgb(77, 148, 255); ">-->
+<section id="services-four" class="section-idx">
   <div class="container-fluid" >
     <div class="row">
 		  <div class="col-lg-12">
@@ -105,7 +102,6 @@
 		</div>
 </div> <!--container-fluid-->
 </section>
-
 <br/>
 
 {% endblock %}
