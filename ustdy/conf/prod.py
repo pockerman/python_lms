@@ -21,3 +21,17 @@ ADMINS = (('Alex G','email@mydomain.com'),)
 #Since DEBUG is False , Django will only allow the hosts
 #included in this list to serve the application. This is a security measure.
 ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0','ustudynow.com', 'www.ustudynow.com']
+
+DATABASES = {
+		'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ustudy_prod_db',
+				'USER': 'davidadmin',
+				'PASSWORD':'pass',
+				'HOST':'localhost',
+				'PORT':'',
+				'TEST': {
+            			'NAME': 'ustudy_test',
+        				},
+    }
+}
