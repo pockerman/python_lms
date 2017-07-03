@@ -20,7 +20,7 @@ ADMINS = (('ustudynowdb_admin','ustudynowteam@gmail.com'),)
 
 #Since DEBUG is False , Django will only allow the hosts
 #included in this list to serve the application. This is a security measure.
-ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0','ustudynow.com', 'www.ustudynow.com']
+ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0','ustudynow.herokuapp.com', 'www.ustudynow.herokuapp.com']
 
 DATABASES = {
     'default': {
