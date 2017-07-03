@@ -165,7 +165,7 @@ section.section-idx h3.section-heading {
 /*index page */
 
 #index-header{
-  background-image:url('../../img/header_II.jpg');
+  background-image:url('../../img/index/header_II.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-position: center;
@@ -178,7 +178,7 @@ section.section-idx h3.section-heading {
 }
 
 #services-one{
-  background-image:url('../../img/header_II.jpg');
+  background-image:url('../../img/index/header_II.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-position: center;
@@ -187,7 +187,7 @@ section.section-idx h3.section-heading {
 }
 
 #services-four{
-  background-image:url('../../img/header_II.jpg');
+  background-image:url('../../img/index/header_II.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-position: center;
@@ -204,7 +204,7 @@ section.section-idx h3.section-heading {
 /*hosting page*/
 #host{
   padding-bottom: 100px ;
-  background-image:url('../../img/cloud_pic_II.jpg');
+  background-image:url('../../img/host/cloud_pic_II.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-size: cover;
@@ -218,7 +218,7 @@ section.section-idx h3.section-heading {
 /*tests page*/
 #tests{
   padding-bottom: 100px ;
-  background-image:url('../../img/test_pic_test_view_II.jpg');
+  background-image:url('../../img/tests/test_pic_test_view_II.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   /*background-position: center;*/
@@ -233,13 +233,13 @@ section.section-idx h3.section-heading {
 
 /*About page*/
 #about{
-  background-image:url('../../img/nums.jpg');
+  background-image:url('../../img/about/nums.jpg');
   opacity: 0.8;
   color:#FFFFFF;
 }
 
 #mission{
-  background-image:url('../../img/about_hist.jpg');
+  background-image:url('../../img/about/about_hist.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-position: center;
@@ -252,7 +252,7 @@ section.section-idx h3.section-heading {
 }
 
 #history{
-  background-image:url('../../img/about_hist.jpg');
+  background-image:url('../../img/about/about_hist.jpg');
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-position: center;
