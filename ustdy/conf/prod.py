@@ -25,10 +25,10 @@ ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0','ustudynow.herokuapp.com', 'www.ustudynow
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ustudynow_prod_db',
-        'USER': 'ustudynowdb_admin',
-        'PASSWORD': 'da13div08_pao',
-        'HOST': 'localhost',
-        'PORT': '',
+        #'NAME': 'ustudynow_prod_db',
+        #'USER': 'ustudynowdb_admin',
+        #'PASSWORD': 'da13div08_pao',
+        #'HOST': 'localhost',
+        #'PORT': '',
     }
 }
