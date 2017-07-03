@@ -11,14 +11,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from .conf.dev import *
+from .conf.prod import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&8fr)7&4&u(p1+^h1%=k597oq12$7bavxw7$822#24%c_^jedt'
@@ -39,33 +35,15 @@ TEMPLATES = [
     },
 ]
 
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-		'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ustudy_prod_db',
-				'USER': 'davidadmin',
-				'PASSWORD':'pass',
-				'HOST':'localhost',
-				'PORT':'',
-				'TEST': {
-            			'NAME': 'ustudy_test',
-        				},		
-    }
-}
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-# Additional locations of static files
+# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [
 
      os.path.join(BASE_DIR,'static'),
-		 os.path.join(BASE_DIR,'media/courses'),
-		 os.path.join(BASE_DIR,'media/library'),
+     os.path.join(BASE_DIR,'media/courses'),
+	 os.path.join(BASE_DIR,'media/library'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -75,7 +53,6 @@ STATIC_URL = '/static/'
 
 #I need to have this like this otherwise I am getting an error when trying to upload
 COURSES_URL = 'media/courses/'
-
 LIBRARY_URL = 'media/library/'
 
 #we have to change this from static to sth else because we have
@@ -87,5 +64,3 @@ LIBRARY_ROOT = os.path.join(BASE_DIR,"media/library/")
 
 if DEBUG==True:
   print("Running under development mode")
-else:
-  print("Running under production mode")

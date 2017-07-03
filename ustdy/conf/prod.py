@@ -11,27 +11,24 @@ ECMS_TMP=True
 #whether the account app is temporarily not used
 ACCOUNT_TMP=True
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 #When DEBUG is False and a view raises an exception, all information
 #will be sent by email to the people listed in the ADMINS setting. Make sure to
 #replace the name/e-mail tuple above with your own information.
-ADMINS = (('Alex G','email@mydomain.com'),)
+ADMINS = (('ustudynowdb_admin','ustudynowteam@gmail.com'),)
 
 #Since DEBUG is False , Django will only allow the hosts
 #included in this list to serve the application. This is a security measure.
 ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0','ustudynow.com', 'www.ustudynow.com']
 
 DATABASES = {
-		'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ustudy_prod_db',
-				'USER': 'davidadmin',
-				'PASSWORD':'pass',
-				'HOST':'localhost',
-				'PORT':'',
-				'TEST': {
-            			'NAME': 'ustudy_test',
-        				},
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ustudynow_prod_db',
+        'USER': 'ustudynowdb_admin',
+        'PASSWORD': 'da13div08_pao',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
