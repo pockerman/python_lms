@@ -1,7 +1,7 @@
 from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = TRUE
+DEBUG = True
 
 #whether the ecms app is on temporary mode or not
 #a temporary mode means that the main features of the
