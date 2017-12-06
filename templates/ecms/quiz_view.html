@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Quiz View{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+<div class="row page-header">
+  <div class="col-md-10">
+    <h4 class="ustdy-header"><a href="{% url 'ecms_app:course_overview_view' myquiz.lesson.module.course.slug %}">{{myquiz.lesson.module.course.title}}</a> | <a href="{% url 'ecms_app:module_overview_view' myquiz.lesson.module.course.slug myquiz.lesson.module.slug %}">{{myquiz.lesson.module.title}}</a> | <a href="{% url 'ecms_app:lesson_view' myquiz.lesson.module.course.slug myquiz.lesson.module.slug myquiz.lesson.slug %}"> {{myquiz.lesson.title}} </a> | Quiz {{myquiz.quiz_id}}
+     </h4>
+  </div>
+</div>
+
+<div class="row" style="background-color:#FFFFFF;">
+  <div class="col-md-8 col-md-offset-2">
+		 <h2 class="ustdy-header page-header text-center">Quiz Questions</h2>
+			<form method="post" action="{% url 'ecms_app:quiz_view' myquiz.course.slug myquiz.module.slug myquiz.lesson.slug myquiz.quiz_id %}">
+    	{% csrf_token %}
+			{% for question in myquiz.lesson_quiz_questions.all %}
+			<div class="form-group">
+			 <div class="page-header">
+			 	<label for="title">Question {{question.order_id}}</label>
+			 </div>
+			 <h4>{{question.question}}</h4>
+				{% if question.is_radio_type %}
+
+					{% for option in question.lesson_quiz_question_options.all %}
+						<div class="radio">
+  						<label><input type="radio" name="raq{{forloop.parentloop.counter}}" value="{{forloop.counter}}">{{option.context}}</label>
+						</div>
+					{% endfor %}
+
+				{% else %}
+
+					{% for option in question.lesson_quiz_question_options.all %}
+						<div class="checkbox">
+  						<label><input type="checkbox" name="caq{{forloop.parentloop.counter}}" value="{{forloop.counter}}">{{option.context}}</label>
+						</div>
+					{% endfor %}
+
+				{% endif %}
+			 
+			</div>
+			{% endfor %}
+			<hr/>
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+			</div>
+			</form> 	
+  </div>
+</div><!--/.row-->
+</div>
+
+
+{% endblock %}

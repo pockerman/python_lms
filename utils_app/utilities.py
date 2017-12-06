@@ -47,6 +47,10 @@ def render_user_html_file(file,context):
 	c = Context(context)
 	return t.render(c)
 
+def render_html_content(content,context):
+    t = Template(content)
+    c = Context(context)
+    return t.render(c)
 
 	
 	

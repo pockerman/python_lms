@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block title %}Ustdynow Update Course{% endblock %}
+{% block extra_head_js %}
+{% load staticfiles %}
+	<script src="{% static "tinymce/js/tinymce/tinymce.min.js" %}"></script>
+  <script>
+		tinymce.init({ selector:'textarea',
+									 plugins : 'advlist autolink link image lists charmap print preview'
+		});
+
+	</script>
+
+{% endblock %}
+{% block content %}
+<div class="container-fluid" style="background-color:#FFFFFF;">
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+
+		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endif %}
+	{% endfor %}
+</div>
+<br/>
+{% endif %}
+
+
+<div class="row">
+  <div class="col-lg-12 page-header">
+    <h3 class="text-center">Update course {{course.title}}</a> </h3>
+  </div>
+</div>
+
+<div class="row">
+ <div class="col-md-4">
+    <h2 class="ustdy-header page-header">Modules</h2>
+    <div class="list-group">
+      {% for module in course.course_modules.all %}
+       <li class="list-group-item"><strong>{{module.title}}</strong> <br/> <a href="{% url 'ecms_course_create_app:module_view' course.slug module.slug %}">View</a> | <a href="{% url 'ecms_course_create_app:module_update_view' course.slug module.slug %}">Edit</a> | <a href="{% url 'ecms_course_create_app:module_delete_view' course.slug module.slug %}">Delete</a> </li>
+			{% empty %}
+				No Modules
+      {% endfor %}
+    </div>
+		<a href="{% url 'ecms_course_create_app:module_create_view' course.slug %}" role="button" class="btn btn-success">Add Module</a>
+	</div>
+
+  <div class="col-md-8">
+		<h2 class="ustdy-header page-header">Course Items</h2>
+    <form method="post" action="{% url 'ecms_course_create_app:course_update_view' course.slug %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+		<div class="form-group">
+				<label for="subject">Subject: {{course.subject}}</label>
+				<select  name="delivery_mode"  class="form-control">
+					<option value="Select">Select subject</option>
+					{% for option in form.fields.subject.choices %}
+						<option value="{{option.slug}}">{{option.title}}</option>
+					{% endfor %}
+				</select>
+				<p class="help-block">The subject of the course.</p>
+		</div>
+			<div class="form-group">
+				<label for="overview">Overview<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="overview" rows="10" class="form-control">{{course.overview}}</textarea>
+			</div>
+			<div class="form-group">
+			 <label for="startdate">Start Date<span style="color:red;">*</span></label>
+			 <input type="text" class="form-control"  name="startdate" value="{{course.start_date}}">
+			</div>
+			<div class="form-group">
+			 <label for="duration">Duration<span style="color:red;">*</span> (in weeks)</label>
+			 <input type="text" class="form-control"  name="duration" value="{{course.duration}}">
+			</div>
+			<div class="form-group">
+			 <label for="effort">Effort<span style="color:red;">*</span> (in hours per week)</label>
+			 <input type="text" class="form-control"  name="effort" value="{{course.effort}}">
+			</div>
+			<div class="form-group">
+			 <label for="fees">Fees<span style="color:red;">*</span></label>
+			 <input type="text" class="form-control"  name="fees" value="{{course.fees}}">
+			</div>
+			<div class="form-group">
+			 <label for="metaauthor">Meta Author<span style="color:red;">*</span></label>
+			 <input type="text" class="form-control"  name="metaauthor" value="{{course.meta_author}}">
+			</div>
+			<div class="form-group">
+			 <label for="metadescription">Meta Description<span style="color:red;">*</span></label>
+			 <input type="text" class="form-control"  name="metadescription" value="{{course.meta_description}}">
+			</div>
+
+			<div class="form-group">
+					<label for="level">Level: {{course.level}}</label>
+					<select  name="level"  class="form-control">
+						<option value="Select">Select level</option>
+						{% for option in form.fields.level.choices %}
+							<option value="{{option.0}}">{{option.1}}</option>
+						{% endfor %}
+					</select>
+					<p class="help-block">The level of the course.</p>
+			</div>
+			<div class="form-group">
+					<label for="level">Language: {{course.language}}</label>
+					<select  name="language"  class="form-control">
+						<option value="Select">Select language</option>
+						{% for option in form.fields.language.choices %}
+							<option value="{{option.0}}">{{option.1}}</option>
+						{% endfor %}
+					</select>
+					<p class="help-block">The language of the course.</p>
+			</div>
+
+			<div class="form-group">
+					<label for="delivery_mode">Delivery Mode: {{course.delivery_mode}}</label>
+					<select  name="delivery_mode"  class="form-control">
+						<option value="Select">Select delivery mode</option>
+						{% for option in form.fields.delivery_mode.choices %}
+							<option value="{{option.0}}">{{option.1}}</option>
+						{% endfor %}
+					</select>
+					<p class="help-block">How the course will be delivered.</p>
+			</div>
+
+			<div class="form-group">
+					<label for="delivery_mode">Video Subtitles : {{course.video_subs}}</label>
+					<select  name="videosubs"  class="form-control">
+						<option value="Select">Select video subtitles</option>
+						{% for option in form.fields.video_subs.choices %}
+							<option value="{{option.0}}">{{option.1}}</option>
+						{% endfor %}
+					</select>
+					<p class="help-block">If the course supports a video in its delivery mode specify if the video has subtitles.</p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo">Syllabus<span style="color:red;">*</span></label>
+				<input type="file" name="syllabus">
+				<p class="help-block">Add a syllabus for the course. </p>
+					{% if syllabus %}
+						{% for error in syllabus %}
+								<p class="help-block" style="color:red;">{{error}}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+			<div class="form-group">
+				<label for="photo">Photo<span style="color:red;">*</span></label>
+				<input type="file" name="photo">
+				<p class="help-block">Add a photo for the course. </p>
+					{% if photo1 %}
+						{% for error in photo %}
+								<p class="help-block" style="color:red;">{{error}}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+			<div class="form-group">
+			 <label for="tags">Tags<span style="color:red;">*</span></label>
+			 <input type="text" class="form-control"  name="tags" value="{{course.tags.names|join:", "}}">
+			 <p class="help-block">Comma separated list of tags.</p>
+			</div>
+			<div class="form-group">
+				<label for="active">Active</label>
+				<input {% if course.active == True %}checked="checked" {% endif %} name="active" type="checkbox" />
+				<p class="help-block">An active course can be accessed by the students. Uncheck if this is not true.</p>
+			</div>
+
+     <input type="hidden" name="next" value="{{ next }}" />
+     <div class="text-center">
+       <button type="submit" class="btn btn-primary" id="submit-btn">Update</button> <button type="submit" name="cancel" class="btn btn-primary" formnovalidate>Cancel</button>
+     </div>
+   </form>
+ </div>
+</div>
+</div>
+{% endblock %}

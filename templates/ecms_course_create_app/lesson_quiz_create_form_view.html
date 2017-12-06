@@ -1,0 +1,1166 @@
+{% extends "base.html" %}
+{% block title %}Ustdynow Create Lesson Quiz{% endblock %}
+{% block content %}
+<div class="container-fluid" style="background-color:#FFFFFF;">
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+
+		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endif %}
+	{% endfor %}
+</div>
+<br/>
+{% endif %}
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="text-center">Add a new quiz to lesson <a href="#">{{lesson.title}} </a> of module <a href="#">{{lesson.module.title}}</a> </h3>
+    <h4>Fill in the form below to start creating a new lesson. A lesson has the following required items:</h4>
+		<h4>
+			<ul>
+				<li>A title</li>
+				<li>HTML text content</li>
+				<li>A list of tags</li>
+				<li>An optional list of images</li>
+				<li>A meta description</li>
+			</ul>
+		</h4>
+		<h3>Apart from the title field, you will be able to change the rest of the fields.</h3>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2 class="page-header section-heading upperframe-logo-second">General Text</h2>
+		<h4>This is H4 header and it is used for the lesson text.</h4>
+	</div>
+</div>
+
+<div class="row">
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<div class="col-lg-12">
+		<h2 class="page-header section-heading upperframe-logo-second">Code Snippets</h2>
+		<h4>We use run_prettify.js to render code snippets. To add code snippets in your post:</h4>
+	</div>
+<blockquote>
+<pre class="prettyprint">
+//include the following url
+&lt;script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"&gt&lt;/script&gt;
+</pre>
+</blockquote>
+
+<div class="col-lg-12">
+	<h4>Wrap your code snippt as shown below</h4>
+</div>
+<blockquote>
+<pre class="prettyprint">
+&lt;pre class="prettyprint"&gt;
+//your code snippet
+&lt;pre&gt;
+</pre>
+</blockquote>
+
+<div class="col-lg-12">
+	<h4>Here is a sample</h4>
+</div>
+
+<blockquote>
+<pre class="prettyprint">
+#include &lt;omp.h&gt;
+#pragma omp parallel
+{
+int thread_id = omp_get_thread_num();
+int n_threads = omp_get_num_threads();
+std::cout<<"Hi from thread "&lt;&lt;thread_id&lt;&lt;" of "&lt;&lt;n_threads&lt;&lt;std::endl;
+}
+</pre>
+</blockquote>
+<div class="col-lg-12">
+	<h4> The pre tag renders what is included within it as is so white spaces are preserved. </h4>
+</div>
+</div><!-- /.row -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2 class="page-header section-heading upperframe-logo-second">Math Expressions</h2>
+		<h4>We use the mathjax library to render mathematical formulae. To render maths: </h4>
+	</div>
+<blockquote>
+	<pre class="prettyprint">
+//include the following into your script.
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+&lt;/script&gt;
+&lt;script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"&gt;
+&lt;/script&gt;
+	</pre>
+</blockquote>
+<div class="col-lg-12">
+	<h4> We can have inline or block displayed mathematical formulas.
+For box display simply wrap the expression between two dollar signs and use Latex symbols : </h4>
+</div>
+
+<blockquote>
+<pre class="prettyprint">
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+</pre>
+</blockquote>
+<div class="col-lg-12">
+	<h4>For inline display use either of the two: </h4>
+</div>
+<blockquote>
+<pre class="prettyprint">
+$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$, or \(ax^2 + bx + c = 0\)
+</pre>
+</blockquote>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+	<h2 class="page-header section-heading upperframe-logo-second">Inserting Images</h2>
+	<h4>Inserting images requires three actions:</h4>
+	<h4>
+		<ul>
+			<li>Indicate the image(s) in your script by using the img tag.</li>
+			<li> The src attribute should point to: /public/blog/{{thepost.0.slug}}/img</li>
+			<li>Upload your images</li>
+		</ul>
+	</h4>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <form method="post" action="{% url 'ecms_course_create_app:lesson_create_quiz_view' lesson.module.course.slug lesson.module.slug lesson.slug %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+		<div class="form-group">
+				<label for="nquestions">Number of Questions</label>
+				<select id="id_nquestions" name="nquestions" title="nquestions" class="form-control" onchange="show_questions()">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+				</select>
+				<p class="help-block">How many questions the quiz has.</p>
+			</div>
+
+			<h2 class="page-header">Question 1</h2>
+
+			<div class="form-group">
+				<label for="q1">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q1" rows="10" class="form-control" required></textarea>
+			</div>
+
+			<script type="text/javascript">
+				create_question_type_option('id_qtype_1');
+			</script>
+			<div class="form-group">
+				<label for="q1type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_1" name="q1type" title="q1type" class="form-control" onchange="show_noptions(1)">
+						<option value="none-q-type">Select question type</option>
+						<option value="radio">Radio</option>
+						<option value="checkbox">Checkbox</option>
+					</select>
+			</div>
+
+			<div id="qselect_q_1" class="hidden">
+				<div class="form-group">
+					<label for="q1typeopts-1">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-1" name="q1typeopts-1" class="form-control" onchange="show_option_fields(1)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-1-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-1">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-1" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-1-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-1">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control" name="opt-2-q-1" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-1-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-1">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-1" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-1-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-1">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-1" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-1-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-1">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control" name="opt-5-q-1" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq1">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control" id="id_caq1" name="caq1" maxlength="200" required />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question. </p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq1">Explanation</label>
+				<textarea cols="40"  name="explq1" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+				<input type="file" name="photo1">
+				<p class="help-block">Add a photo used in the question. </p>
+					{% if photo1 %}
+						{% for error in photo1 %}
+								<p class="help-block" style="color:red;">{{error}}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="active1">Active</label>
+					<input checked="checked" name="active1" type="checkbox" />
+					<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+				</div>
+
+				<!--Question 2 -->
+		<div id="q-2" class="hidden">
+			<h2 class="page-header">Question 2</h2>
+
+			<div class="form-group">
+				<label for="q2">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q2" rows="10" class="form-control"></textarea>
+			</div>
+
+			<!--question type-->
+			<div class="form-group">
+				<label for="q2type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_2" name="q2type" title="q2type" class="form-control" onchange="show_noptions(2)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_2" class="hidden">
+				<div class="form-group">
+					<label for="q2typeopts-2">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-2" name="q2typeopts-2" class="form-control" onchange="show_option_fields(2)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-2-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-2">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-2" maxlength="200"/>
+						<p class="help-block">Specify option for radio or checkbox type of question. </p>
+					</div>
+				</div>
+
+				<div id="q-2-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-2">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-2" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-2-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-2">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-2" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-2-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-2">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-2" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-2-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-2">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-2" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq2">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq2" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question.</p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq2">Explanation</label>
+				<textarea cols="40" name="explq2" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo2">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active2">Active</label>
+				<input checked="checked" name="active2" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-2-->
+
+		<!--Question 3 -->
+		<div id="q-3" class="hidden">
+			<h2 class="page-header">Question 3</h2>
+
+			<div class="form-group">
+				<label for="q3">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q3" rows="10" class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="q3type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_3" name="q3type" title="q3type" class="form-control" onchange="show_noptions(3)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_3" class="hidden">
+				<div class="form-group">
+					<label for="q3typeopts-3">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-3" name="q3typeopts-3" class="form-control" onchange="show_option_fields(3)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+				</div>
+			</div>
+
+			<div id="q-3-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-3">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-3" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-3-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-3">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-3" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-3-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-3">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-3" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-3-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-3">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-3" maxlength="200"/>
+
+				</div>
+			</div>
+
+			<div id="q-3-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-3">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-3" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq3">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq3" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question.</p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq3">Explanation</label>
+				<textarea cols="40" name="explq3" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo3">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active3">Active</label>
+				<input checked="checked" name="active3" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-3-->
+
+		<!--Question 4 -->
+		<div id="q-4" class="hidden">
+			<h2 class="page-header">Question 4</h2>
+
+			<div class="form-group">
+				<label for="q4">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q4" rows="10" class="form-control"></textarea>
+				<p class="help-block">Which is the question that is asked.</p>
+			</div>
+			<div class="form-group">
+				<label for="q4type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_4" name="q4type" title="q4type" class="form-control" onchange="show_noptions(4)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_4" class="hidden">
+				<div class="form-group">
+					<label for="q4typeopts-4">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-4" name="q4typeopts-4" class="form-control" onchange="show_option_fields(4)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-4-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-4">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-4" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-4-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-4">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-4" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-4-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-4">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-4" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-4-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-4">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-4" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-4-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-4">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-4" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq4">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq4" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question.</p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq4">Explanation</label>
+				<textarea cols="40" name="explq4" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo4">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active4">Active</label>
+				<input checked="checked" name="active4" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-4-->
+
+		<!-- Question 5 -->
+		<div id="q-5" class="hidden">
+			<h2 class="page-header">Question 5</h2>
+
+			<div class="form-group">
+				<label for="q5">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q5" rows="10" class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="q5type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_5" name="q5type" title="q5type" class="form-control" onchange="show_noptions(5)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_5" class="hidden">
+				<div class="form-group">
+					<label for="q5typeopts-5">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-5" name="q5typeopts-5" class="form-control" onchange="show_option_fields(5)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-5-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-5">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-5" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-5-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-5">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-5" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-5-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-5">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-5" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-5-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-5">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-5" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-5-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-5">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-5" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq5">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq5" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question. </p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq5">Explanation</label>
+				<textarea cols="40" name="explq5" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo5">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active5">Active</label>
+				<input checked="checked" name="active5" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+
+		<hr/>
+		</div> <!--q-5-->
+
+		<!-- Question 6-->
+		<div id="q-6" class="hidden">
+			<h2 class="page-header">Question 6</h2>
+
+			<div class="form-group">
+				<label for="q6">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q6" rows="10" class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="q6type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_6" name="q6type" title="q6type" class="form-control" onchange="show_noptions(6)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_6" class="hidden">
+				<div class="form-group">
+					<label for="q6typeopts-6">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-6" name="q6typeopts-6" class="form-control" onchange="show_option_fields(6)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-6-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-6">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-6" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-6-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-6">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-6" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-6-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-6">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-6" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-6-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-6">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-6" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-6-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-6">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-6" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq6">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq6" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question. </p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq6">Explanation</label>
+				<textarea cols="40" name="explq6" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo6">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active6">Active</label>
+				<input checked="checked" name="active6" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-6-->
+
+		<!-- Question 7--->
+	 <div id="q-7" class="hidden">
+			<h2 class="page-header">Question 7</h2>
+
+			<div class="form-group">
+				<label for="q7">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q7" rows="10" class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="q7type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_7" name="q7type" title="q7type" class="form-control" onchange="show_noptions(7)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_7" class="hidden">
+				<div class="form-group">
+					<label for="q7typeopts-7">Number of options<span style="color:red;">*</span><span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-7" name="q7typeopts-7"  class="form-control" onchange="show_option_fields(7)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-7-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-7">Option 1<span style="color:red;">*</span><span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-7" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-7-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-7">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-7" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-7-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-7">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-7" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-7-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-7">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-7" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-7-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-7">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-7" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq7">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq7" maxlength="200"  />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question. </p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq7">Explanation</label>
+				<textarea cols="40" name="explq7" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo7">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active7">Active</label>
+				<input checked="checked" name="active7" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div><!--q-7-->
+
+		<!-- Question 8-->
+		<div id="q-8" class="hidden">
+			<h2 class="page-header">Question 8</h2>
+
+			<div class="form-group">
+				<label for="q8">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q8" rows="10" class="form-control"></textarea>
+			</div>
+
+
+			<div class="form-group">
+				<label for="q8type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_8" name="q8type" title="q8type" class="form-control" onchange="show_noptions(8)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_8" class="hidden">
+				<div class="form-group">
+					<label for="q8typeopts-8">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-8" name="q8typeopts-8" class="form-control" onchange="show_option_fields(8)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-8-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-8">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-8" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-8-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-8">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-8" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-8-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-8">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-8" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-8-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-8">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-8" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-8-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-8">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-8" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq8">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq8" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question.</p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq8">Explanation</label>
+				<textarea cols="40" name="explq8" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo8">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active8">Active</label>
+				<input checked="checked" name="active8" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-8-->
+		<!-- Question 9-->
+		<div id="q-9" class="hidden">
+			<h2 class="page-header">Question 9</h2>
+
+			<div class="form-group">
+				<label for="q9">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q9" rows="10" class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="q9type">Question Type</label>
+				<select id="id_qtype_9" name="q9type" title="q9type" class="form-control" onchange="show_noptions(9)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_9" class="hidden">
+				<div class="form-group">
+					<label for="q9typeopts-9">Number of options</label>
+					<select id="id_qtypeopts-9" name="q9typeopts-9" class="form-control" onchange="show_option_fields(9)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-9-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-9">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-9" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-9-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-9">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-9" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-9-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-9">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-9" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-9-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-9">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-9" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-9-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-9">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-9" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq9">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq9" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question. </p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq9">Explanation</label>
+				<textarea cols="40" name="explq9" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo9">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active9">Active</label>
+				<input checked="checked" name="active9" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-9-->
+		<!-- Question 10-->
+		<div id="q-10" class="hidden">
+			<h2 class="page-header">Question 10</h2>
+
+			<div class="form-group">
+				<label for="q10">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q10" rows="10" class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="q10type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype_10" name="q10type" title="q10type" class="form-control" onchange="show_noptions(10)">
+					<option value="none-q-type">Select question type</option>
+					<option value="radio">Radio</option>
+					<option value="checkbox">Checkbox</option>
+				</select>
+			</div>
+
+			<div id="qselect_q_10" class="hidden">
+				<div class="form-group">
+					<label for="q10typeopts-10">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-10" name="q10typeopts-10" class="form-control" onchange="show_option_fields(10)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+				</div>
+			</div>
+
+			<div id="q-10-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-10">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-10" maxlength="200"/>
+					</div>
+				</div>
+
+				<div id="q-10-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-10">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-2-q-10" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-10-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-10">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-10" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-10-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-10">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-10" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-10-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-10">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-5-q-10" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq10">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control"  name="caq10" maxlength="200" />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question.</p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq10">Explanation</label>
+				<textarea cols="40" name="explq10" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+        <input type="file" name="photo10">
+				<p class="help-block">Add a photo used in the question. </p>
+						{% if photo1 %}
+							{% for error in photo1 %}
+                	<p class="help-block" style="color:red;">{{error}}</p>
+							{% endfor %}
+						{% endif %}
+      </div>
+
+			<div class="form-group">
+				<label for="active10">Active</label>
+				<input checked="checked" name="active10" type="checkbox" />
+				<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+			</div>
+		</div> <!--q-10-->
+
+
+
+     <input type="hidden" name="next" value="{{ next }}" />
+     <div class="text-center">
+       <button type="submit" class="btn btn-primary" id="submit-btn">Create</button> <button type="submit" name="cancel" class="btn btn-primary" formnovalidate>Cancel</button>
+     </div>
+   </form>
+ </div>
+</div>
+</div>
+{% endblock %}

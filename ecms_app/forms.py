@@ -16,6 +16,46 @@ class NotifyForm(forms.ModelForm):
 		model = NotifyCourseStart
 		fields=['name','email',]
 
+
+class LessonQuizValidateForm:
+
+    def __init__(self,quiz):
+        self.quiz = quiz
+
+    def validate(self,request):
+        correct=0
+
+        questions = self.quiz.lesson_quiz_questions.all()
+        counter = 1
+        result={}
+        ##loop over the questions in the quiz
+        for question in questions:
+            if question.qtype.type == 'Radio':
+                answer = request.POST.get('raq'+str(counter),None)
+                if answer == str(question.correct_answer):
+                    result['q'+str(counter)]="CORRECT"
+                else:
+                    result['q'+str(counter)]="FALSE"
+            elif question.qtype.type == 'CheckBox':
+                answers = request.POST.getlist('caq'+str(counter),[])
+                correctanswers = question.correct_answer.split(",")
+                if len(answers) != len(correctanswers):
+                    result['q'+str(counter)]="FALSE"
+                    #we must check the answers selected
+                allIn = True
+                for a in answers:
+                    if a in correctanswers:
+                        continue
+                    else:
+                        allIn=False
+                        break
+                if allIn==True:
+                    result['q'+str(counter)]="CORRECT"
+                else:
+                    result['q'+str(counter)]="FALSE"
+            counter+=1
+        return result
+
 #class UserRegistrationForm(forms.ModelForm):
 #	password = forms.CharField(label='Password',widget=forms.PasswordInput)
 #	password2 = forms.CharField(label='Repeat password',widget=forms.PasswordInput)

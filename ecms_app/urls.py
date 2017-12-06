@@ -10,9 +10,29 @@ if ECMS_TMP == True:
 												 views.ecms_courses_tmp_view, 
 													name='ecms_courses_tmp_view'),
 								
-								url(r'^catalog/$',
-										views.ecms_courses_catalog_view,
-										name='ecms_courses_catalog_view'),
+		url(r'^catalog/$',
+				views.courses_catalog_view,
+				name='courses_catalog_view'),
+
+    url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/$',
+        views.module_overview_view,
+				name='module_overview_view'),
+
+    url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/lessons/(?P<lesson_slug>[-\w]+)/view/$',
+        views.lesson_view,
+        name='lesson_view'),
+
+    url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/lessons/(?P<lesson_slug>[-\w]+)/quizes/(?P<quiz_id>[0-9]+)/start/$',
+        views.quiz_start_view,
+        name='quiz_start_view'),
+
+     url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/lessons/(?P<lesson_slug>[-\w]+)/quizes/(?P<quiz_id>[0-9]+)/view/$',
+        views.quiz_view,
+        name='quiz_view'),
+
+    url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/lessons/(?P<lesson_slug>[-\w]+)/quizes/(?P<quiz_id>[0-9]+)/results/$',
+        views.quiz_results_view,
+        name='quiz_results_view'),
 
 								url(r'^catalog/subject/(?P<subject_slug>[-\w]+)/$',
 										views.ecms_courses_catalog_subject_view,
@@ -20,8 +40,8 @@ if ECMS_TMP == True:
 
 
 								url(r'^course/(?P<course_slug>[-\w]+)/overview/$',
-										views.course_overview,
-										name='course_overview'),
+										views.course_overview_view,
+										name='course_overview_view'),
 
 								url(r'^course/(?P<course_slug>[-\w]+)/notify-me/$',
 										views.notify_me_course_start,

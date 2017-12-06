@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% block title %}Ustdynow Create Module Course{% endblock %}
+{% block content %}
+<div class="container-fluid" style="background-color:#FFFFFF;">
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+
+		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endif %}
+	{% endfor %}
+</div>
+<br/>
+{% endif %}
+
+
+<div class="row">
+  <div class="col-lg-12 page-header">
+    <h3 class="text-center">Add a new lesson to module <a href="#">{{module.title}}</a> </h3>
+	</div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <h4>Fill in the form below to start creating a new lesson. A lesson has the following required items:</h4>
+		<h4>
+			<ul>
+				<li>A title</li>
+				<li>HTML text content</li>
+				<li>A list of tags</li>
+				<li>An optional list of images</li>
+				<li>A meta description</li>
+			</ul>
+		</h4>
+		<h4>Apart from the title field, you will be able to change the rest of the fields.</h4>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2 class="page-header section-heading upperframe-logo-second">General Text</h2>
+		<h4>This is H4 header and it is used for the lesson text.</h4>
+	</div>
+</div>
+
+<div class="row">
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<div class="col-lg-12">
+		<h2 class="page-header section-heading upperframe-logo-second">Code Snippets</h2>
+		<h4>We use run_prettify.js to render code snippets. To add code snippets in your post:</h4>
+	</div>
+<blockquote>
+<pre class="prettyprint">
+//include the following url
+&lt;script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"&gt&lt;/script&gt;
+</pre>
+</blockquote>
+
+<div class="col-lg-12">
+	<h4>Wrap your code snippt as shown below</h4>
+</div>
+<blockquote>
+<pre class="prettyprint">
+&lt;pre class="prettyprint"&gt;
+//your code snippet
+&lt;pre&gt;
+</pre>
+</blockquote>
+
+<div class="col-lg-12">
+	<h4>Here is a sample</h4>
+</div>
+
+<blockquote>
+<pre class="prettyprint">
+#include &lt;omp.h&gt;
+#pragma omp parallel
+{
+int thread_id = omp_get_thread_num();
+int n_threads = omp_get_num_threads();
+std::cout<<"Hi from thread "&lt;&lt;thread_id&lt;&lt;" of "&lt;&lt;n_threads&lt;&lt;std::endl;
+}
+</pre>
+</blockquote>
+<div class="col-lg-12">
+	<h4> The pre tag renders what is included within it as is so white spaces are preserved. </h4>
+</div>
+</div><!-- /.row -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2 class="page-header section-heading upperframe-logo-second">Math Expressions</h2>
+		<h4>We use the mathjax library to render mathematical formulae. To render maths: </h4>
+	</div>
+<blockquote>
+	<pre class="prettyprint">
+//include the following into your script.
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+&lt;/script&gt;
+&lt;script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"&gt;
+&lt;/script&gt;
+	</pre>
+</blockquote>
+<div class="col-lg-12">
+	<h4> We can have inline or block displayed mathematical formulas.
+For box display simply wrap the expression between two dollar signs and use Latex symbols : </h4>
+</div>
+
+<blockquote>
+<pre class="prettyprint">
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+</pre>
+</blockquote>
+<div class="col-lg-12">
+	<h4>For inline display use either of the two: </h4>
+</div>
+<blockquote>
+<pre class="prettyprint">
+$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$, or \(ax^2 + bx + c = 0\)
+</pre>
+</blockquote>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+	<h2 class="page-header section-heading upperframe-logo-second">Inserting Images</h2>
+	<h4>Inserting images requires three actions:</h4>
+	<h4>
+		<ul>
+			<li>Indicate the image(s) in your script by using the img tag.</li>
+			<li> The src attribute should point to: /public/blog/{{thepost.0.slug}}/img</li>
+			<li>Upload your images</li>
+		</ul>
+	</h4>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form method="post" action="{% url 'ecms_course_create_app:lesson_create_view' module.course.slug module.slug %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="control-group form-group">
+      <label for="title">Title<span style="color:red;">*</span></label>
+      <div class="controls">
+        <input type="text" class="form-control" name="title"  value="{{title_used}}" required>
+        {% if title %}
+          {% for error in title %}
+            <p class="help-block" style="color:red;">{{error}}</p>
+           {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="control-group form-group">
+      <div class="controls">
+        <label for="text_content">HTML Text Content<span style="color:red;">*</span></label>
+        <textarea rows="10" cols="100" class="form-control" name="text_content" style="resize:none" required>{{text_content_used}}</textarea>
+        {% if text_content %}
+          {% for error in text_content %}
+            <p class="help-block" style="color:red;">{{error}}</p>
+           {% endfor %}
+        {% endif %}
+       </div>
+     </div>
+		 <div class="control-group form-group">
+       <div class="controls">
+         <label for="meta_description">Meta description<span style="color:red;">*</span></label>
+				 <input type="text" class="form-control" name="meta_description"  value="{{meta_description_used}}" required>
+         {% if meta_description %}
+           {% for error in meta_description %}
+             <p class="help-block" style="color:red;">{{error}}</p>
+            {% endfor %}
+         {% endif %}
+        </div>
+      </div>
+		 <div class="form-group">
+			 <label for="section_file">Section Content Images</label>
+			 <input type="file" name="img" multiple>
+			 <p class="help-block">Upload any image assets present in the section content file. Select multiple files, by holding down the CTRL or SHIFT key while selecting </p>
+		</div>
+     <input type="hidden" name="next" value="{{ next }}" />
+     <div class="text-center">
+       <button type="submit" class="btn btn-primary" id="submit-btn">Create</button> <button type="submit" name="cancel" class="btn btn-primary" formnovalidate>Cancel</button>
+     </div>
+   </form>
+ </div>
+</div>
+</div>
+{% endblock %}

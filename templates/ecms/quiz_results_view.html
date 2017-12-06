@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Quiz View{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+
+ <div class="row page-header">
+    <div class="col-md-10">
+      <h4 class="ustdy-header"><a href="{% url 'ecms_app:course_overview_view' myquiz.lesson.module.course.slug %}">{{myquiz.lesson.module.course.title}}</a> | <a href="{% url 'ecms_app:module_overview_view' myquiz.lesson.module.course.slug myquiz.lesson.module.slug %}">{{myquiz.lesson.module.title}}</a> | <a href="{% url 'ecms_app:lesson_view' myquiz.lesson.module.course.slug myquiz.lesson.module.slug myquiz.lesson.slug %}"> {{myquiz.lesson.title}} </a> | Quiz {{myquiz.quiz_id}}
+      </h4>
+    </div>
+  </div><!-- /.row -->
+
+<div class="row" style="background-color:#FFFFFF;">
+  <div class="col-md-8 col-md-offset-2">
+		 <h2 class="ustdy-header page-header text-center">Quiz Questions</h2>
+			
+			{% for  q in questions %}
+			<div class="form-group">
+				<div class="page-header">
+			 <label for="title">Question {{forloop.counter}} {% if q.result == "CORRECT" %}<i class="fa fa-fw fa-check" style="color:#009933;"></i> {% else %}<i class="fa fa-fw fa-times" style="color:red;"></i> {% endif %}</label>
+				</div>
+			 	<h4>{{q.question.question}}</h4>
+				{% if q.question.is_radio_type %}
+
+					{% for option in q.question.lesson_quiz_question_options.all %}
+						<div class="radio">
+  						<label><input type="radio" name="raq{{forloop.parentloop.counter}}" value="{{forloop.counter}}">{{option.context}}</label>
+						</div>
+					{% endfor %}
+
+				{% else %}
+
+					{% for option in q.question.lesson_quiz_question_options.all %}
+						<div class="checkbox">
+  						<label><input type="checkbox" name="caq{{forloop.parentloop.counter}}" value="{{forloop.counter}}">{{option.context}}</label>
+						</div>
+					{% endfor %}
+
+				{% endif %}
+
+				<div class="explanation">
+					<br/>
+					<p><strong>The correct answer is option {{q.question.correct_answer}}</strong>.</p>
+					<p><strong>Explanation: </strong>{{q.question.explanation}}</p>
+				</div>			 
+
+			</div>
+			{% endfor %}
+
+				
+  </div>
+</div><!--/.row-->
+</div>
+
+{% endblock %}

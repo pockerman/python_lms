@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Ustdynow Lesson Update{% endblock %}
+{% block extra_head_js %}
+{% load staticfiles %}
+	<script src="{% static "tinymce/js/tinymce/tinymce.min.js" %}"></script>
+  <script>
+		tinymce.init({ selector:'textarea',
+									 plugins : 'advlist autolink link image lists charmap print preview'
+		});
+
+	</script>
+
+{% endblock %}
+{% block content %}
+<div class="container-fluid" style="background-color:#FFFFFF;">
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+
+		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endif %}
+	{% endfor %}
+</div>
+<br/>
+{% endif %}
+
+
+<div class="row section-row">
+  <div class="col-lg-12 page-header">
+    <h2 class="text-center">Update lesson  <a href="#">{{lesson.title}}</a> </h2>
+    <h4></h4>
+  </div>
+</div>
+
+<div class="row">
+
+	<div class="col-md-4">
+		<h2 class="ustdy-header page-header">Quizes</h2>
+     <div class="list-group">
+        {% for quiz in lesson.lesson_quizes.all %}
+          <li class="list-group-item">Quiz {{quiz.quiz_id}} <a href="#">View</a> | <a href="{% url 'ecms_course_create_app:lesson_quiz_update_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}">Edit</a> | <a href="{% url 'ecms_course_create_app:lesson_quiz_add_new_question_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}">Add Question</a> | <a href="{% url 'ecms_course_create_app:lesson_quiz_delete_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}">Delete</a></li>
+        {% empty %}
+          No quizes
+        {% endfor %}
+    </div>
+     <a href="{% url 'ecms_course_create_app:lesson_create_quiz_view' lesson.module.course.slug lesson.module.slug lesson.slug %}" role="button" class="btn btn-success">Add Quiz</a>
+	</div>
+
+	<h2 class="ustdy-header page-header">Lesson Items</h2>
+
+  <div class="col-md-8">
+    <form method="post" action="{% url 'ecms_course_create_app:lesson_update_view' lesson.module.course.slug lesson.module.slug lesson.slug %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="control-group form-group">
+      <div class="controls">
+        <label for="text_content">Text Content<span style="color:red;">*</span></label>
+        <textarea rows="10" cols="100" class="form-control" name="text_content"   style="resize:none" required>{{text_content_used}}</textarea>
+        {% if text_content %}
+          {% for error in text_content %}
+            <p class="help-block" style="color:red;">{{error}}</p>
+           {% endfor %}
+        {% endif %}
+       </div>
+     </div>
+		 <div class="control-group form-group">
+       <div class="controls">
+         <label for="meta_description">Meta description<span style="color:red;">*</span></label>
+				 <input type="text" class="form-control" name="meta_description"  value="{{meta_description_used}}" required>
+         {% if meta_description %}
+           {% for error in meta_description %}
+             <p class="help-block" style="color:red;">{{error}}</p>
+            {% endfor %}
+         {% endif %}
+        </div>
+      </div>
+		 <div class="form-group">
+				<label for="section_file">Current Lesson Images</label>
+				 {% for imgfile in lesson.lesson_file_imgs.all %}
+						<p>{{imgfile.file.name}}</p>
+				 {% empty %}
+						<p>This lesson  has no images</p>
+				 {% endfor %}
+		</div>
+		<div class="form-group">
+			 <label for="section_file">Replace Lesson  Images</label>
+			 <input type="file" name="replace_img" multiple>
+			 <p class="help-block">Upload any image assets present in the section content file. Select multiple files, by holding down the CTRL or SHIFT key while selecting.  </p>
+		</div>
+		<div class="form-group">
+			 <label for="section_file">Lesson  Images</label>
+			 <input type="file" name="img" multiple>
+			 <p class="help-block">Upload any image assets present in the section content file. Select multiple files, by holding down the CTRL or SHIFT key while selecting </p>
+		</div>
+     <input type="hidden" name="next" value="{{ next }}" />
+     <div class="text-center">
+       <button type="submit" class="btn btn-primary" id="submit-btn">Update</button> <button type="submit" name="cancel" class="btn btn-primary" formnovalidate>Cancel</button>
+     </div>
+   </form>
+ </div>
+</div>
+</div>
+{% endblock %}

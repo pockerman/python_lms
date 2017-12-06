@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Ustdynow {{username}}{% endblock %}
+{% block content %}
+
+<div class="container">
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+
+		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endif %}
+	{% endfor %}
+</div>
+<br/>
+{% endif %}
+
+
+<div class="row page-header">
+  <div class="col-lg-12 text-center">
+		<p class="lead">Welcome {{user.username}}</p>
+   </div>
+</div>
+
+<div class="page-header row">
+	<div class="col-md-4">
+		<a href="{% url 'ecms_course_create_app:course_create_view' %}" role="button" class="btn btn-success">Create Course</a>
+	</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+		<p class="lead"><strong>My Courses</strong></p>
+		{% for course in mycourses%}
+			<h3> <a href="{% url 'ecms_course_create_app:course_view' course.slug %}" >{{course.title}}</a></h3>
+			<div class="btn-group">
+				<a href="{% url 'ecms_course_create_app:course_view' course.slug %}" role="button" class="btn btn-primary">View</a>
+				<a href="{% url 'ecms_course_create_app:course_update_view' course.slug %}" role="button" class="btn btn-success">Edit</a>
+				<a href="{% url 'ecms_course_create_app:course_delete_view' course.slug %}" role="button" class="btn btn-danger">Delete</a>
+			</div>
+		{% endfor %}
+  </div>
+</div>
+
+</div>
+{% endblock %}

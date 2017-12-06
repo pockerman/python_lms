@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Module {{module.title}} Overview{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+{% if messages %}
+  <div class="row">
+  	<br/>
+  	{% for message in messages %}
+
+  		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+  			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+  				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    			{{message }}
+  		 </div>
+  		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+  			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+  				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    			{{message }}
+  		 </div>
+  	{% endif %}
+  	{% endfor %}
+  </div>
+  <br/>
+  {% endif %}
+
+ <div class="row page-header">
+    <div class="col-md-10">
+      <h4 class="ustdy-header"><a href="{% url 'ecms_course_create_app:course_view' module.course.slug %}">{{module.course.title}}</a> | {{module.title}}
+      </h4>
+    </div>
+  </div><!-- /.row -->
+<div class="row">
+  <div class="col-md-3">
+    <h2 class="ustdy-header page-header">Lessons</h2>
+    <div class="list-group">
+      {% for lesson in module.module_lessons.all %}
+       <li class="list-group-item"> {{lesson.title}}: <a href="{% url 'ecms_course_create_app:lesson_view' module.course.slug module.slug lesson.slug %}">View</a> | <a href="{% url 'ecms_course_create_app:lesson_update_view' module.course.slug module.slug lesson.slug %}">Edit</a> | <a href="{% url 'ecms_course_create_app:lesson_delete_view' module.course.slug module.slug lesson.slug %}">Delete</a> </li>
+			{% empty %}
+				No Lessons
+      {% endfor %}
+    </div>
+    <!--<a href="{% url 'ecms_course_create_app:lesson_create_view' module.course.slug module.slug %}" role="button" class="btn btn-success">Add Lesson</a>-->
+  </div>
+  <div class="col-md-9">
+		<h2 class="ustdy-header page-header">Overview</h2>
+		<h4>{{module.overview}}</h4>
+	</div>
+</div><!--/.row-->
+</div>
+{% endblock %}

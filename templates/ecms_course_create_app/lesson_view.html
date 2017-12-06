@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}{{lesson.title}} Overview{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+  {% if messages %}
+  <div class="row">
+  	<br/>
+  	{% for message in messages %}
+
+  		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+  			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+  				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    			{{message }}
+  		 </div>
+  		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+  			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+  				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    			{{message }}
+  		 </div>
+  	{% endif %}
+  	{% endfor %}
+  </div>
+  <br/>
+  {% endif %}
+
+
+  <div class="row page-header">
+    <div class="col-md-10">
+      <h4 class="ustdy-header"><a herf="#">{{lesson.module.course.title}}</a> |
+        <a href="{% url 'ecms_course_create_app:module_view' lesson.module.course.slug lesson.module.slug %}">{{lesson.module.title}}</a> |
+      {{lesson.title}}</h4>
+    </div>
+  </div><!-- /.row -->
+	<div class="row">
+  	<div class="col-md-3">
+		 <h2 class="ustdy-header page-header">Quizes</h2>
+     <div class="list-group">
+        {% for quiz in lesson.lesson_quizes.all %}
+          <li class="list-group-item">Quiz {{quiz.quiz_id}} <br/> <a href="#">View</a> | <a href="{% url 'ecms_course_create_app:lesson_quiz_update_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}">Edit</a>
+          | <a href="{% url 'ecms_course_create_app:lesson_quiz_add_new_question_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}">Add Question</a>
+          | <a href="{% url 'ecms_course_create_app:lesson_quiz_delete_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}">Delete</a></li>
+        {% empty %}
+          No quizes
+        {% endfor %}
+    </div>
+     <a href="{% url 'ecms_course_create_app:lesson_create_quiz_view' lesson.module.course.slug lesson.module.slug lesson.slug %}" role="button" class="btn btn-success">Add Quiz</a>
+  </div>
+   <div class="col-md-9">
+			<h2 class="ustdy-header page-header">{{lesson.title}}</h2>
+			{{text_content}}
+		</div>
+ 	</div>
+
+</div>
+
+{% endblock %}

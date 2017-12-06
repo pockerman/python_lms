@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 #from opensim_elearncms.models import Course
 
-# Create your models here.
+
 
 class Profile(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL)

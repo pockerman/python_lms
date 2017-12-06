@@ -10,7 +10,7 @@ function show_syllabus(){
   else{
 		 elem.value = "Show More";
 		 $('#syllabus').addClass('hidden');
-	}	
+	}
 }
 
 function show_subtitles(){
@@ -29,7 +29,7 @@ function show_subtitles(){
 	}
 
 }
-		
+
 
 function show_modules(){
 
@@ -49,9 +49,9 @@ function show_modules(){
 	}
 	else{
 
-		for(var i=2; i<=parseInt(nModulesSelected); ++i){		
-			module= "#module-"+i; 
-			$(module).removeClass('hidden'); 
+		for(var i=2; i<=parseInt(nModulesSelected); ++i){
+			module= "#module-"+i;
+			$(module).removeClass('hidden');
 			$('#id_title-'+i).prop('required',true);
 			$('#id_overview-'+i).prop('required',true);
 		}
@@ -83,19 +83,44 @@ function show_questions(){
 	}
 	else{
 
-		for(var i=2; i<=parseInt(nQuestionsSelected); ++i){		
-			module= "#q-"+i; 
-			$(module).removeClass('hidden'); 
-			
+		for(var i=2; i<=parseInt(nQuestionsSelected); ++i){
+			module= "#q-"+i;
+			$(module).removeClass('hidden');
+
 		}
 
 		var hide_start_index = parseInt(nQuestionsSelected)+1;
 		for(var i=hide_start_index; i<=nChoices; ++i){
-			$("#q-"+i).addClass('hidden');	
+			$("#q-"+i).addClass('hidden');
 		}
 	}
 
 }
+
+/*function show_types_select(type){
+
+	//console.log("Getting element: ",type);
+	var elemId = type+"-btn";
+	var elem = document.getElementById(elemId);
+
+	if(elem===null){
+		console.log("Getting element with id: ",elemId);
+	}
+	else{
+		console.log("Getting element with id: ",elemId);
+	}
+
+	if (elem.value=="Change"){
+			$(type).removeClass('hidden');
+			 elem.value = "Cancel";
+	}
+	else{
+		 elem.value = "Change";
+		 $(type).addClass('hidden');
+	}
+
+
+}*/
 
 function show_noptions(qindex){
 
@@ -108,19 +133,19 @@ function show_noptions(qindex){
 
 		if(optionSelected==='radio' || optionSelected==='checkbox'){
 			$('#qselect_q_'+qindex).removeClass('hidden');
-			$('#qselect_q_'+qindex).prop('required',true); 
+			$('#qselect_q_'+qindex).prop('required',true);
 		}
 		else{
 
 				$('#qselect_q_'+qindex).addClass('hidden');
-				$('#qselect_q_'+qindex).prop('required',false); 
+				$('#qselect_q_'+qindex).prop('required',false);
 
 				for(var i=1; i<=noptions; ++i){
 					var id = '#q-'+qindex+'-opt-'+i;
 					$(id).addClass('hidden');
 					$(id).prop('required',false);
 			}
-				
+
 		}
 }
 

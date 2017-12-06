@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Lesson {{mylesson.title}} Overview{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+
+ <div class="row page-header">
+    <div class="col-md-10">
+      <h4 class="ustdy-header"><a href="{% url 'ecms_app:course_overview_view' mylesson.module.course.slug %}">{{mylesson.module.course.title}}</a> | <a href="{% url 'ecms_app:module_overview_view' mylesson.module.course.slug mylesson.module.slug %}">{{mylesson.module.title}}</a> | {{mylesson.title}}
+      </h4>
+    </div>
+  </div><!-- /.row -->
+
+<div class="row">
+
+  <div class="col-md-3">
+    <h2 class="ustdy-header page-header">Lessons</h2>
+    <div class="list-group">
+      {% for lesson in mylesson.module.module_lessons.all %}
+				{% if lesson.slug == mylesson.slug %}
+        <a href="{% url 'ecms_app:lesson_view' lesson.module.course.slug lesson.module.slug lesson.slug %}"  class="list-group-item active">{{lesson.title}}</a>
+				{% else %}
+				<a href="{% url 'ecms_app:lesson_view' lesson.module.course.slug lesson.module.slug lesson.slug %}"  class="list-group-item">{{lesson.title}}</a>
+				{% endif %}
+      {% endfor %}
+    </div>
+		 <h2 class="ustdy-header page-header">Lesson Quizes</h2>
+    	<div class="list-group">
+      {% for quiz in mylesson.lesson_quizes.all %}
+       <a href="{% url 'ecms_app:quiz_start_view' mylesson.module.course.slug mylesson.module.slug mylesson.slug quiz.quiz_id %}" class="list-group-item">Quiz {{quiz.quiz_id}}</a>
+      {% endfor %}
+    </div>
+
+  </div>
+   <div class="col-md-9">
+			<h2 class="ustdy-header page-header">{{mylesson.title}}</h2>
+			{{text_content}}
+	</div>
+</div><!--/.row-->
+</div>
+
+{% endblock %}

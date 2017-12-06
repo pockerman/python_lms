@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}Ustdynow Add Lesson Quiz Question{% endblock %}
+{% block content %}
+<div class="container-fluid" style="background-color:#FFFFFF;">
+
+{% if messages %}
+<div class="row">
+	<br/>
+	{% for message in messages %}
+
+		{%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="alert alert-success alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+		{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="alert alert-danger alert-dismissable text-center" id="error_msg">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			{{message }}
+		 </div>
+	{% endif %}
+	{% endfor %}
+</div>
+<br/>
+{% endif %}
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="text-center">Add a new question to quiz {{quiz.order_id}} of lesson <a href="#">{{lesson.title}} </a> of module <a href="#">{{lesson.module.title}}</a> </h3>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <form method="post" action="{% url 'ecms_course_create_app:lesson_quiz_add_new_question_view' lesson.module.course.slug lesson.module.slug lesson.slug quiz.quiz_id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+			<h2 class="page-header">Question</h2>
+
+			<div class="form-group">
+				<label for="q1">Question Context<span style="color:red;">*</span></label>
+				<textarea cols="40"  name="q1" rows="10" class="form-control" required></textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="q1type">Question Type<span style="color:red;">*</span></label>
+				<select id="id_qtype" name="q1type" class="form-control">
+						<option value="none-q-type">Select question type</option>
+						<option value="radio">Radio</option>
+						<option value="checkbox">Checkbox</option>
+					</select>
+			</div>
+
+			<div id="qselect_q">
+				<div class="form-group">
+					<label for="qtypeopts">Number of options<span style="color:red;">*</span></label>
+					<select id="id_qtypeopts-1" name="q1typeopts-1" class="form-control" onchange="show_option_fields(1)">
+							<option value="none-n-opts">Select number of options</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+					</select>
+					<p class="help-block">Radio and checkbox questions require to specify the number of options. </p>
+				</div>
+			</div>
+
+			<div id="q-1-opt-1" class="hidden">
+					<div class="form-group">
+						<label for="opt-1-q-1">Option 1<span style="color:red;">*</span></label>
+						<input type="text" class="form-control"  name="opt-1-q-1" maxlength="200"/>
+					</div>
+			</div>
+
+				<div id="q-1-opt-2" class="hidden">
+					<div class="form-group">
+						<label for="opt-2-q-1">Option 2<span style="color:red;">*</span></label>
+						<input type="text" class="form-control" name="opt-2-q-1" maxlength="200"/>
+					</div>
+				</div>
+
+			<div id="q-1-opt-3" class="hidden">
+				<div class="form-group">
+					<label for="opt-3-q-1">Option 3<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-3-q-1" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-1-opt-4" class="hidden">
+				<div class="form-group">
+					<label for="opt-4-q-1">Option 4<span style="color:red;">*</span></label>
+					<input type="text" class="form-control"  name="opt-4-q-1" maxlength="200"/>
+				</div>
+			</div>
+
+			<div id="q-1-opt-5" class="hidden">
+				<div class="form-group">
+					<label for="opt-5-q-1">Option 5<span style="color:red;">*</span></label>
+					<input type="text" class="form-control" name="opt-5-q-1" maxlength="200"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="caq1">Correct Answer<span style="color:red;">*</span></label>
+				<input type="text" class="form-control" id="id_caq1" name="caq1" maxlength="200" required />
+				<p class="help-block">Provide a comma separated list of correct answers if this is a radio or checkbox question. </p>
+			</div>
+
+
+			<div class="form-group">
+				<label for="explq1">Explanation</label>
+				<textarea cols="40"  name="explq1" rows="10" class="form-control" ></textarea>
+				<p class="help-block">Provide an explanation about the answer. Leave blank if none. </p>
+			</div>
+
+			<div class="form-group">
+				<label for="photo1">Photo</label>
+				<input type="file" name="photo1">
+				<p class="help-block">Add a photo used in the question. </p>
+					{% if photo1 %}
+						{% for error in photo1 %}
+								<p class="help-block" style="color:red;">{{error}}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="active1">Active</label>
+					<input checked="checked" name="active1" type="checkbox" />
+					<p class="help-block">An active question means that it can be viewd by the students. Uncheck if this is not true.</p>
+				</div>
+
+
+     <input type="hidden" name="next" value="{{ next }}" />
+     <div class="text-center">
+       <button type="submit" class="btn btn-primary" id="submit-btn">Add Question</button> <button type="submit" name="cancel" class="btn btn-primary" formnovalidate>Cancel</button>
+     </div>
+   </form>
+ </div>
+</div>
+</div>
+{% endblock %}

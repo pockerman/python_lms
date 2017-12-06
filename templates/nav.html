@@ -7,13 +7,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-				<a class="navbar-brand" href="{% url 'ustdy_app:ustdy_index' %}"><strong  id="ustdy-logo" class="ustdy-header-three">U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow</strong></a>
+				<a class="navbar-brand" href="{% url 'ustdy_app:ustdy_index' %}"><strong  id="ustdy-logo" class="ustdy-header-three">U<i class="fa fa-arrow-circle-right fa-1x"></i>studynow Alpha Version</strong></a>
       </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-left">
           <li {% if selectcourses %}class="active" {%endif%}>
-						<a href="{% url 'ecms_app:ecms_courses_catalog_view' %}" >Online Courses</a>
+						<a href="{% url 'ecms_app:courses_catalog_view' %}" >Online Courses</a>
 					</li>
           <li {% if selectlibrary %}class="active" {%endif%}>
 		         <a href="{% url 'library_app:library_index' %}">Library</a>
@@ -23,6 +23,14 @@
 					</li>
           <li {%if selectcontact == True %} class="active" {% endif %}>
             <a href="{% url 'contact_app:contact_index' %}" >Contact</a>
+          </li>
+
+          <li>
+            {% if userloggedin == False %}
+            <a href="{% url 'account_app:login_index' %}" >Log in</a>
+            {% else %}
+            <a href="{% url 'account_app:user_logout' %}" >Log out</a>
+            {% endif %}
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->

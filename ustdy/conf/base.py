@@ -19,6 +19,7 @@ INSTALLED_APPS = [
 		'ecms_course_create_app',
 		'library_app',
 		'tests_app',
+    'account_app',
 		'utils_app',
 ]
 

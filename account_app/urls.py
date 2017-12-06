@@ -5,36 +5,45 @@ from . import views
 urlpatterns = [
 
 	url(r'^login/$', 
-			views.user_login, 
-			name='user_login'),
+			views.login_index,
+			name='login_index'),
 
-	#url(r'^instructor_login/$',
-	#		views.instructor_user_login,
-	#		name='instructor_user_login'),
+    url(r'^login_user/$',
+        views.user_login,
+        name='user_login'),
 
-	url(r'^register/$', 
-			views.user_register, 
-			name='user_register'),
+    url(r'^login_instructor',
+        views.instructor_login,
+        name='instructor_login'),
 
-	url(r'^success_register/(?P<first_name>\w+)/$',
-			views.success_registration,
-			name='success_registration'),
+    url(r'^user_register/$',
+			  views.user_register,
+			  name='user_register'),
 
-	#url(r'^instructor_register/$',
-	#		views.instructor_register,
-	#		name='instructor_register'),
+    url(r'^instructor_register',
+        views.instructor_register,
+        name="instructor_register"),
 
-	url(r'^logout/$',
-			views.user_logout,
-			name='user_logout'),
+	  url(r'^success_register/(?P<first_name>\w+)/$',
+			  views.success_registration,
+			  name='success_registration'),
 
-	url(r'^profile/edit/$', 
-			views.user_profile_edit, 
-			name='user_profile_edit'),
 
-	url(r'^profile/$',
-			views.user_profile,
-			name='user_profile'),
+	  url(r'^logout/$',
+			  views.user_logout,
+			  name='user_logout'),
+
+	  url(r'^profile/edit/$',
+			  views.user_profile_edit,
+			  name='user_profile_edit'),
+
+	  url(r'^profile/$',
+			  views.user_profile,
+			  name='user_profile'),
+
+    url(r'^profile/instructor/',
+        views.instructor_profile,
+        name='instructor_profile'),
 
 	
 

@@ -119,6 +119,19 @@ class SubtitlesLanguage(models.Model):
 
 	def __str__(self):
 		return self.language
+
+class QuestionType(models.Model):
+    """
+    Class that models a question type
+    """
+    TYPE_CHOICES=[('CheckBox','CheckBox'),('Radio','Radio')]
+    type = models.CharField(max_length=100,choices=TYPE_CHOICES,null=False,unique=True)
+
+    class Meta:
+        db_table="question_type"
+
+    def __str__(self):
+        return self.type
 	
 	
 
