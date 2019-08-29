@@ -1,4 +1,0 @@
-Django==1.11
-django-taggit==0.22.0
-Pillow==4.1.0
-django-webtest==1.9.1
